@@ -109,7 +109,7 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">50-100 stars</span>
+                      <span className="text-white text-sm">10 stars</span>
                     </div>
                     <span className="text-xs text-cyan-400 font-mono">QUIZ</span>
                   </div>
