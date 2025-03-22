@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Star, Award, Zap, Loader2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Award, Zap, Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { topInvitersLeaderboardByPage } from "@/lib/csv-service"
 
@@ -47,11 +47,6 @@ export function InvitersLeaderboard() {
 
     return (
         <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10">
-            <CardHeader className="border-b border-pink-900/30">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <CardTitle className="text-xl font-mono text-pink-500">TOP INVITERS LEADERBOARD</CardTitle>
-                </div>
-            </CardHeader>
             <CardContent className="pt-6 overflow-x-auto">
                 {isLoading ? (
                     <div className="flex flex-col items-center py-10 text-pink-500">
