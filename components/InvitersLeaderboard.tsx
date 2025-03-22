@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { topInvitersLeaderboardByPage } from "@/lib/csv-service"
 
 interface IInviterLeaderboardEntry {
+    rank: number
     inviter: string
     count: number
 }
@@ -75,20 +76,20 @@ export function InvitersLeaderboard() {
                                             {index === 0 && currentPage === 1 ? (
                                                 <Badge className="bg-gradient-to-r from-yellow-500 to-yellow-300 text-black">
                                                     <Award className="w-3 h-3 mr-1" />
-                                                    {index + 1}
+                                                    {entry.rank}
                                                 </Badge>
                                             ) : index === 1 && currentPage === 1 ? (
                                                 <Badge className="bg-gradient-to-r from-gray-400 to-gray-300 text-black">
                                                     <Award className="w-3 h-3 mr-1" />
-                                                    {index + 1}
+                                                    {entry.rank}
                                                 </Badge>
                                             ) : index === 2 && currentPage === 1 ? (
                                                 <Badge className="bg-gradient-to-r from-amber-700 to-amber-600 text-white">
                                                     <Award className="w-3 h-3 mr-1" />
-                                                    {index + 1}
+                                                    {entry.rank}
                                                 </Badge>
                                             ) : (
-                                                <span>{index + 1}</span>
+                                                <span>{entry.rank}</span>
                                             )}
                                         </TableCell>
                                         <TableCell className="font-mono">{entry.inviter}</TableCell>

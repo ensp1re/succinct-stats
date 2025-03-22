@@ -149,8 +149,9 @@ export async function GET(request: NextRequest) {
         (Number.parseInt(page) - 1) * Number.parseInt(entriesPerPage);
       const pagedData = sortedInviters
         .slice(startIndex, startIndex + Number.parseInt(entriesPerPage))
-        .map((inviter) => {
+        .map((inviter, index) => {
           return {
+            rank: startIndex + index + 1,
             inviter,
             count: inviters[inviter].length,
           };
