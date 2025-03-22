@@ -67,3 +67,17 @@ export const getNetworkStats = async () => {
     throw error;
   }
 };
+
+export const topInvitersLeaderboardByPage = async (
+  page: number,
+  entriesPerPage: number
+) => {
+  const res = await axios.get("/api/leaderboard", {
+    params: {
+      action: "topInvitersLeaderboardByPage",
+      page,
+      entriesPerPage,
+    },
+  });
+  return res.data;
+};

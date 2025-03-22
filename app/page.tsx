@@ -6,6 +6,7 @@ import { UserSearch } from "@/components/UserSearch"
 import { StarDistribution } from "@/components/StarDistribution"
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
+import { InvitersLeaderboard } from "@/components/InvitersLeaderboard"
 
 export default function Home(): ReactElement {
   return (
@@ -40,6 +41,12 @@ export default function Home(): ReactElement {
           <h2 className="text-2xl font-mono font-bold mb-4 text-pink-500 neon-text">LEADERBOARD</h2>
           <Suspense fallback={<LoadingStats />}>
             <Leaderboard />
+          </Suspense>
+        </div>
+        <div className="mb-8">
+          <h2 className="text-2xl font-mono font-bold mb-4 text-pink-500 neon-text">INVITERS LEADERBOARD</h2>
+          <Suspense fallback={<LoadingStats />}>
+            <InvitersLeaderboard />
           </Suspense>
         </div>
 

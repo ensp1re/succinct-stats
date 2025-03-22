@@ -54,7 +54,55 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
       }
 
-      return NextResponse.json(result, { status: 200 });
+      const averageProofs =
+        data.reduce(
+          (sum, entry) => sum + Number(entry.proofs.replace(/,/g, "")),
+          0
+        ) / data.length;
+      const averageStars =
+        data.reduce(
+          (sum, entry) => sum + Number(entry.stars.replace(/,/g, "")),
+          0
+        ) / data.length;
+      const averageCycles =
+        data.reduce(
+          (sum, entry) => sum + Number(entry.cycles.replace(/,/g, "")),
+          0
+        ) / data.length;
+
+      const proofs = Math.min(
+        Math.max(
+          (Number(result.proofs.replace(/,/g, "")) / averageProofs) * 50,
+          1
+        ),
+        100
+      );
+      const stars = Math.min(
+        Math.max(
+          (Number(result.stars.replace(/,/g, "")) / averageStars) * 50,
+          1
+        ),
+        100
+      );
+      const cycles = Math.min(
+        Math.max(
+          (Number(result.cycles.replace(/,/g, "")) / averageCycles) * 50,
+          1
+        ),
+        100
+      );
+
+      return NextResponse.json(
+        {
+          data: result,
+          progress: {
+            proofs,
+            stars,
+            cycles,
+          },
+        },
+        { status: 200 }
+      );
     }
 
     if (action === "getByPage" && page && entriesPerPage) {
@@ -76,6 +124,49 @@ export async function GET(request: NextRequest) {
         {
           data: pagedData,
           total: data.length,
+        },
+        { status: 200 }
+      );
+    }
+
+    if (action === "topInvitersLeaderboardByPage" && page && entriesPerPage) {
+      const inviters = data.reduce((acc: any, entry: LeaderboardEntry) => {
+        if (entry.invitedBy) {
+          if (acc[entry.invitedBy]) {
+            acc[entry.invitedBy].push(entry);
+          } else {
+            acc[entry.invitedBy] = [entry];
+          }
+        }
+        return acc;
+      }, {});
+
+      const sortedInviters = Object.keys(inviters).sort((a, b) => {
+        return inviters[b].length - inviters[a].length;
+      });
+
+      const startIndex =
+        (Number.parseInt(page) - 1) * Number.parseInt(entriesPerPage);
+      const pagedData = sortedInviters
+        .slice(startIndex, startIndex + Number.parseInt(entriesPerPage))
+        .map((inviter) => {
+          return {
+            inviter,
+            count: inviters[inviter].length,
+          };
+        });
+
+      if (pagedData.length === 0) {
+        return NextResponse.json(
+          { error: "No data found for the page" },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          data: pagedData,
+          total: sortedInviters.length,
         },
         { status: 200 }
       );

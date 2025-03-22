@@ -12,10 +12,20 @@ import type { LeaderboardEntry } from "@/lib/types"
 import { Progress } from "@/components/ui/progress"
 
 export function UserSearch() {
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState<string>("")
   const [userStats, setUserStats] = useState<LeaderboardEntry | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [isSearching, setIsSearching] = useState(false)
+  const [isSearching, setIsSearching] = useState<boolean>(false)
+
+  const [progress, setProgress] = useState<{
+    proofs: number
+    cycles: number
+    stars: number
+  }>({
+    proofs: 0,
+    cycles: 0,
+    stars: 0,
+  })
 
   const handleSearch = () => {
     if (!username.trim()) {
@@ -31,8 +41,13 @@ export function UserSearch() {
       try {
         const result = await getEntryByUsername(username)
 
+        console.log(result.progress)
+
+
+
         if (result) {
-          setUserStats(result)
+          setUserStats(result.data)
+          setProgress(result.progress)
           setError(null)
         } else {
           setUserStats(null)
@@ -132,7 +147,7 @@ export function UserSearch() {
                     <span className="text-white font-mono">{userStats.stars}</span>
                   </div>
                 </div>
-                <Progress value={75} className="h-3 bg-pink-900/30">
+                <Progress value={progress.stars} className="h-3 bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
                 </Progress>
               </div>
@@ -142,7 +157,7 @@ export function UserSearch() {
                   <h3 className="text-cyan-400 font-mono">PROOFS</h3>
                   <span className="text-white font-mono">{userStats.proofs}</span>
                 </div>
-                <Progress value={40} className="h-3 bg-pink-900/30">
+                <Progress value={progress.proofs} className="h-3 bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                 </Progress>
               </div>
@@ -152,7 +167,7 @@ export function UserSearch() {
                   <h3 className="text-cyan-400 font-mono">CYCLES</h3>
                   <span className="text-white font-mono">{userStats.cycles}</span>
                 </div>
-                <Progress value={60} className="h-3 bg-pink-900/30">
+                <Progress value={progress.cycles} className="h-3 bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                 </Progress>
               </div>
