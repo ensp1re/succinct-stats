@@ -147,7 +147,7 @@ export function UserSearch() {
                   </div>
                 </div>
                 <Suspense fallback={null}>
-                  <ShareStats user={userStats} />
+                  <ShareStats user={userStats} progress={progress}/>
                 </Suspense>
               </div>
             </div>
