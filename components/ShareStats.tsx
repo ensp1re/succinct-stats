@@ -92,6 +92,10 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
         document.body.removeChild(link)
     }
 
+    useEffect(() => {
+        document.body.style.overflowY = 'auto !important'
+    }, [])
+
     return (
         <Dialog onOpenChange={(open) => open && handleDialogOpen()}>
             <DialogTrigger asChild>
@@ -104,7 +108,7 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
                     Share
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-black border border-pink-900/50">
+            <DialogContent className="sm:max-w-md bg-black border my-4 border-pink-900/50 overflow-y-scroll max-h-screen ">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-mono text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>
@@ -291,14 +295,6 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
                                         </>
                                     )}
                                 </Button>
-                            </div>
-
-                            <div className="flex items-center mt-2 text-xs text-gray-400 bg-pink-950/10 p-2 rounded-md border border-pink-900/30">
-                                <Info className="h-4 w-4 mr-2 text-pink-500 flex-shrink-0" />
-                                <span>
-                                    Twitter doesn't allow automatic image attachment. Download the image first, then attach it to your
-                                    tweet for maximum impact!
-                                </span>
                             </div>
                         </div>
                     )}
