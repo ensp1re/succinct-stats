@@ -202,7 +202,7 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
                                                     <span className="text-white font-mono text-lg">{userStats?.stars}</span>
                                                 </div>
                                             </div>
-                                            <Progress value={75} className="h-4 bg-pink-900/30">
+                                            <Progress value={userStats?.stars ? Number(userStats.stars) : undefined} className="h-4 bg-pink-900/30">
                                                 <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
                                             </Progress>
                                         </div>
@@ -212,7 +212,7 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
                                                 <h3 className="text-cyan-400 font-mono">PROOFS</h3>
                                                 <span className="text-white font-mono text-lg">{userStats?.proofs}</span>
                                             </div>
-                                            <Progress value={40} className="h-4 bg-pink-900/30">
+                                            <Progress value={userStats?.proofs ? Number(userStats.proofs) : undefined} className="h-4 bg-pink-900/30">
                                                 <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                                             </Progress>
                                         </div>
@@ -222,7 +222,7 @@ const ShareStats = ({ user }: ShareStatsProps): ReactElement => {
                                                 <h3 className="text-cyan-400 font-mono">CYCLES</h3>
                                                 <span className="text-white font-mono text-lg">{userStats?.cycles}</span>
                                             </div>
-                                            <Progress value={60} className="h-4 bg-pink-900/30">
+                                            <Progress value={userStats?.cycles ? Number(userStats.proofs) : undefined} className="h-4 bg-pink-900/30">
                                                 <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                                             </Progress>
                                         </div>
