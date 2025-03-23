@@ -16,7 +16,7 @@ export function NetworkStats(): ReactElement {
   const [animatedProofs, setAnimatedProofs] = useState<number>(0)
 
   useEffect(() => {
-    const fetchData = async (retries = 3) => {
+    const fetchData = async () => {
       const res = await getNetworkStats();
       setTotalProvers(res.totalProvers);
       setTotalStars(res.totalStars);

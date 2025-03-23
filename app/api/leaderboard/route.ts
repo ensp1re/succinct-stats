@@ -92,6 +92,26 @@ export async function GET(request: NextRequest) {
         100
       );
 
+      const calculateUserTopPercent = (
+        userData: LeaderboardEntry,
+        allUsersData: LeaderboardEntry[]
+      ) => {
+        const userRank = Number(userData.rank.replace(/[^0-9]/g, ""));
+        const totalUsers = allUsersData.length;
+
+        const topPercent = (userRank / totalUsers) * 100;
+
+        return topPercent > 1
+          ? Math.floor(topPercent).toString()
+          : userRank <= 3
+          ? topPercent.toFixed(3)
+          : topPercent.toFixed(2);
+      };
+
+      const topPercentage = calculateUserTopPercent(result, data);
+
+      console.log("Top percentage:", topPercentage);
+
       return NextResponse.json(
         {
           data: result,
@@ -100,6 +120,7 @@ export async function GET(request: NextRequest) {
             stars,
             cycles,
           },
+          topPercentage,
         },
         { status: 200 }
       );

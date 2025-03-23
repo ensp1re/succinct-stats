@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,6 +10,10 @@ import { Search, Star, AlertCircle, Twitter } from "lucide-react"
 import { getEntryByUsername } from "@/lib/csv-service"
 import type { LeaderboardEntry } from "@/lib/types"
 import { Progress } from "@/components/ui/progress"
+import dynamic from "next/dynamic"
+
+const ShareStats = dynamic(() => import('@/components/ShareStats'))
+
 
 export function UserSearch() {
   const [username, setUsername] = useState<string>("")
@@ -41,12 +45,11 @@ export function UserSearch() {
       try {
         const result = await getEntryByUsername(username)
 
-        console.log(result.progress)
 
 
 
         if (result) {
-          setUserStats(result.data)
+          setUserStats({ ...result.data, topPercent: result.topPercentage })
           setProgress(result.progress)
           setError(null)
         } else {
@@ -130,11 +133,22 @@ export function UserSearch() {
                   Invited by: {userStats.invitedBy !== "-" ? userStats.invitedBy : "None"}
                 </p>
               </div>
-              <div className="mt-4 md:mt-0 flex items-center">
-                <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
-                  <span className="text-gray-400 text-sm font-mono">RANK</span>
-                  <div className="text-2xl font-bold text-pink-500 font-mono">{userStats.rank}</div>
+              <div className="mt-4 md:mt-0 flex items-center space-x-4">
+                <div className="flex space-x-2">
+                  <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
+                    <span className="text-gray-400 text-sm font-mono">RANK</span>
+                    <div className="text-2xl font-bold text-pink-500 font-mono">{userStats.rank}</div>
+                  </div>
+                  <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
+                    <span className="text-gray-400 text-sm font-mono">TOP</span>
+                    <div className="text-2xl font-bold text-pink-500 font-mono">
+                      {userStats.topPercent}%
+                    </div>
+                  </div>
                 </div>
+                <Suspense fallback={null}>
+                  <ShareStats user={userStats} />
+                </Suspense>
               </div>
             </div>
 
