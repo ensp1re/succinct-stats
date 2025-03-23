@@ -207,7 +207,9 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                                 <h3 className="text-cyan-400 font-mono">STARS</h3>
                                                 <div className="flex items-center">
                                                     <Star className="text-pink-500 w-5 h-5 mr-1" />
-                                                    <span className="text-white font-mono text-lg">{userProgress?.stars}</span>
+                                                    <span className="text-white font-mono text-lg">{
+                                                        userProgress?.stars ? Math.floor(userProgress.stars) : 0
+                                                    }</span>
                                                 </div>
                                             </div>
                                             <Progress value={userProgress?.stars ? Number(userProgress.stars) : undefined} className="h-4 bg-pink-900/30">
@@ -218,7 +220,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                         <div>
                                             <div className="flex justify-between mb-2">
                                                 <h3 className="text-cyan-400 font-mono">PROOFS</h3>
-                                                <span className="text-white font-mono text-lg">{userProgress?.proofs}</span>
+                                                <span className="text-white font-mono text-lg"> {userProgress?.proofs ? Math.floor(userProgress.proofs) : 0}</span>
                                             </div>
                                             <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-4 bg-pink-900/30">
                                                 <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
@@ -228,7 +230,9 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                         <div>
                                             <div className="flex justify-between mb-2">
                                                 <h3 className="text-cyan-400 font-mono">CYCLES</h3>
-                                                <span className="text-white font-mono text-lg">{userProgress?.cycles}</span>
+                                                <span className="text-white font-mono text-lg">{
+                                                    userProgress?.cycles ? Math.floor(userProgress.cycles) : 0
+                                                }</span>
                                             </div>
                                             <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-4 bg-pink-900/30">
                                                 <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
