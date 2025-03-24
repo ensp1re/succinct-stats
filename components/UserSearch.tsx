@@ -133,7 +133,7 @@ export function UserSearch() {
                   Invited by: {userStats.invitedBy !== "-" ? userStats.invitedBy : "None"}
                 </p>
               </div>
-              <div className="mt-4 md:mt-0 flex items-center space-x-4">
+              <div className="mt-4 md:mt-0 flex flex-col items-start md:flex-row md:items-center space-x-4">
                 <div className="flex space-x-2">
                   <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
                     <span className="text-gray-400 text-sm font-mono">RANK</span>
@@ -145,10 +145,12 @@ export function UserSearch() {
                       {userStats.topPercent}%
                     </div>
                   </div>
+
                 </div>
                 <Suspense fallback={null}>
-                  <ShareStats user={userStats} progress={progress}/>
+                  <ShareStats user={userStats} progress={progress} />
                 </Suspense>
+
               </div>
             </div>
 

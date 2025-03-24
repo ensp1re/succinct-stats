@@ -110,7 +110,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="bg-black/50 border-pink-900/50 hover:bg-pink-950/30 text-pink-500"
+                    className="bg-black/50 mt-4  md:mt-0 border-pink-900/50 w-full hover:bg-pink-950/30 text-pink-500"
                 >
                     <Share2 className="h-4 w-4 mr-2" />
                     Share
