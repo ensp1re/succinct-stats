@@ -4,21 +4,44 @@ import path from "path";
 import csv from "csv-parser";
 import type { LeaderboardEntry } from "@/lib/types";
 
-const todayString = new Date()
-  .toISOString()
-  .split("T")[0]
-  .replace(/-/g, "_")
-  .split("_")
-  .slice(1)
-  .concat(new Date().toISOString().split("T")[0].split("-")[0])
-  .join("_");
+const getFilePath = () => {
+  const getDateString = (date: Date) =>
+    date
+      .toISOString()
+      .split("T")[0]
+      .replace(/-/g, "_")
+      .split("_")
+      .slice(1)
+      .concat(date.toISOString().split("T")[0].split("-")[0])
+      .join("_");
 
-const filePath = path.join(
-  process.cwd(),
-  "public",
-  "leaderboards",
-  `succinct_leaderboard@${todayString}.csv`
-);
+  const today = new Date();
+  const todayString = getDateString(today);
+
+  let filePath = path.join(
+    process.cwd(),
+    "public",
+    "leaderboards",
+    `succinct_leaderboard@${todayString}.csv`
+  );
+
+  if (!fs.existsSync(filePath)) {
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const yesterdayString = getDateString(yesterday);
+
+    filePath = path.join(
+      process.cwd(),
+      "public",
+      "leaderboards",
+      `succinct_leaderboard@${yesterdayString}.csv`
+    );
+  }
+
+  return filePath;
+};
+
+const filePath = getFilePath();
 
 const loadLeaderboardData = async (): Promise<LeaderboardEntry[]> => {
   const leaderboardData: LeaderboardEntry[] = [];
