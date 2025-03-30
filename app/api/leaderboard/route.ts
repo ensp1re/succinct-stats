@@ -4,7 +4,21 @@ import path from "path";
 import csv from "csv-parser";
 import type { LeaderboardEntry } from "@/lib/types";
 
-const filePath = path.join(process.cwd(), "public", "succinct_leaderboard.csv");
+const todayString = new Date()
+  .toISOString()
+  .split("T")[0]
+  .replace(/-/g, "_")
+  .split("_")
+  .slice(1)
+  .concat(new Date().toISOString().split("T")[0].split("-")[0])
+  .join("_");
+
+const filePath = path.join(
+  process.cwd(),
+  "public",
+  "leaderboards",
+  `succinct_leaderboard@${todayString}.csv`
+);
 
 const loadLeaderboardData = async (): Promise<LeaderboardEntry[]> => {
   const leaderboardData: LeaderboardEntry[] = [];
@@ -43,9 +57,10 @@ export async function GET(request: NextRequest) {
     const data = await loadLeaderboardData();
 
     if (action === "getByUsername" && username) {
-      const normalizedUsername = username.startsWith("@")
-        ? username
-        : `@${username}`;
+      const normalizedUsername =
+        username.startsWith("@") || username.startsWith("0x")
+          ? username
+          : `@${username}`;
       const result = data.find(
         (entry) => entry.name.toLowerCase() === normalizedUsername.toLowerCase()
       );

@@ -33,8 +33,8 @@ export function StarDistribution() {
   const maxCount = Math.max(...ranges.map((r) => r.count), 1)
 
   return (
-    <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10">
-      <CardHeader className="border-b border-pink-900/30">
+    <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
+      <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
         <CardTitle className="text-xl font-mono text-pink-500">STAR DISTRIBUTION</CardTitle>
       </CardHeader>
       <CardContent className="pt-6">
@@ -49,11 +49,11 @@ export function StarDistribution() {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-pink-500 mr-2" />
-                    <span className="text-white font-mono">{range.range} stars</span>
+                    <span className="text-gray-800 dark:text-white font-mono">{range.range} stars</span>
                   </div>
-                  <span className="text-cyan-400 font-mono">{range.count} users</span>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-mono">{range.count} users</span>
                 </div>
-                <div className="w-full bg-pink-900/20 rounded-full h-3">
+                <div className="w-full bg-pink-100 dark:bg-pink-900/20 rounded-full h-3">
                   <div
                     className={`h-full rounded-full ${index % 2 === 0 ? "bg-gradient-to-r from-pink-600 to-pink-400" : "bg-gradient-to-r from-cyan-600 to-cyan-400"}`}
                     style={{ width: `${(range.count / maxCount) * 100}%` }}
@@ -64,11 +64,11 @@ export function StarDistribution() {
           </div>
         )}
 
-        <div className="mt-6 p-4 bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30">
-          <h3 className="text-cyan-400 font-mono mb-2">DISTRIBUTION INSIGHTS</h3>
-          <p className="text-gray-300 text-sm">
-            The majority of users fall in the 2,501-10,000 stars range, representing the active community members. Only
-            a small percentage have reached the highest tier of 10,001+ stars, making them the elite contributors to the
+        <div className="mt-6 p-4 bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+          <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">DISTRIBUTION INSIGHTS</h3>
+          <p className="text-gray-700 dark:text-gray-300 text-sm">
+            The majority of users fall in the 5,001-10,000 stars range, representing the active community members. Only
+            a small percentage have reached the highest tier of 15,001+ stars, making them the elite contributors to the
             network.
           </p>
         </div>

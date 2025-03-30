@@ -81,3 +81,23 @@ export const topInvitersLeaderboardByPage = async (
   });
   return res.data;
 };
+
+export const fetchActivityData = async (startDate: string, endDate: string) => {
+  try {
+    const res = await axios.get("/api/activity", {
+      params: {
+        startDate,
+        endDate,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching activity data:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+    throw error;
+  }
+};

@@ -13,7 +13,7 @@ export default function EarnPage(): ReactElement {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white bg-grid-pattern">
+    <div className="min-h-screen bg-white dark:bg-[#050505] text-gray-800 dark:text-white bg-grid-pattern">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 bg-gradient-to-r from-pink-600 to-pink-500 p-6 rounded-lg shadow-lg shadow-pink-500/20">
           <h1 className="text-3xl font-bold mb-4 text-white font-mono">LEVEL 1: CRISIS OF TRUST</h1>
@@ -24,7 +24,7 @@ export default function EarnPage(): ReactElement {
             This testnet allows users to deposit USDC, generate proofs, and earn stars. By participating, you'll gain
             early access to the network and contribute to our mission of proving the world's software.
           </p>
-          <Button className="bg-black hover:bg-gray-900 text-pink-500 font-mono">
+          <Button className="bg-white hover:bg-gray-100 dark:bg-black dark:hover:bg-gray-900 text-pink-500 font-mono">
             <Link
               href="https://testnet.succinct.xyz"
               className="flex items-center"
@@ -37,18 +37,18 @@ export default function EarnPage(): ReactElement {
           </Button>
         </div>
 
-        <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10 mb-8">
-          <CardHeader className="border-b border-pink-900/30">
+        <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10 mb-8">
+          <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
             <CardTitle className="text-xl font-mono text-pink-500">ELIGIBILITY REQUIREMENTS</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
               Users will only be eligible to earn stars if they meet to the following criteria:
             </p>
-            <ul className="space-y-3 text-gray-300">
+            <ul className="space-y-3 text-gray-700 dark:text-gray-300">
               <li className="flex items-start">
                 <div className="bg-pink-500 rounded-full h-5 w-5 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                  <span className="text-black text-xs font-bold">1</span>
+                  <span className="text-white dark:text-black text-xs font-bold">1</span>
                 </div>
                 <span>
                   Use the frontend interface to the "Level 1: Crisis of Trust" application to generate proofs.
@@ -56,7 +56,7 @@ export default function EarnPage(): ReactElement {
               </li>
               <li className="flex items-start">
                 <div className="bg-pink-500 rounded-full h-5 w-5 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                  <span className="text-black text-xs font-bold">2</span>
+                  <span className="text-white dark:text-black text-xs font-bold">2</span>
                 </div>
                 <span>
                   Deposit $10 USDC, connect their wallet, use a valid invite code, and complete the rest of the
@@ -65,13 +65,13 @@ export default function EarnPage(): ReactElement {
               </li>
               <li className="flex items-start">
                 <div className="bg-pink-500 rounded-full h-5 w-5 flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                  <span className="text-black text-xs font-bold">3</span>
+                  <span className="text-white dark:text-black text-xs font-bold">3</span>
                 </div>
                 <span>Interact with games to generate proofs.</span>
               </li>
             </ul>
-            <div className="mt-6 p-4 bg-pink-950/20 rounded-md border border-pink-900/30">
-              <p className="text-pink-200 flex items-center">
+            <div className="mt-6 p-4 bg-pink-50 dark:bg-pink-950/20 rounded-md border border-pink-300/30 dark:border-pink-900/30">
+              <p className="text-pink-700 dark:text-pink-200 flex items-center">
                 <DollarSign className="h-5 w-5 mr-2 text-pink-500" />
                 It is important to note that depositing more than $10 USDC will not earn you more stars. For additional
                 information, please refer to the FAQ section of the network.
@@ -80,17 +80,15 @@ export default function EarnPage(): ReactElement {
           </CardContent>
         </Card>
 
-        <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10 mb-8">
-          <CardHeader className="border-b border-pink-900/30">
+        <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10 mb-8">
+          <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
             <CardTitle className="text-xl font-mono text-pink-500 flex items-center">
               <GamepadIcon className="mr-2 h-5 w-5" /> AVAILABLE GAMES
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/veristar")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/veristar.png"
@@ -109,16 +107,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">10 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">10 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">QUIZ</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">QUIZ</span>
                   </div>
                 </div>
               </div>
 
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/coin")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/coin-craze.png"
@@ -137,17 +133,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">1-20 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">1-20 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">PUZZLE</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">PUZZLE</span>
                   </div>
                 </div>
               </div>
 
-              <div
-
-                onClick={() => router.push("https://testnet.succinct.xyz/bird")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/floppygpu.png"
@@ -166,15 +159,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">1-20 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">1-20 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">FLOPPY</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">FLOPPY</span>
                   </div>
                 </div>
               </div>
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/2048")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/2048.png"
@@ -193,16 +185,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">1-20 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">1-20 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">PUZZLE</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">PUZZLE</span>
                   </div>
                 </div>
               </div>
 
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/turbo")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/turbo-racing.png"
@@ -221,16 +211,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">5-40 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">5-40 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">RACING</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">RACING</span>
                   </div>
                 </div>
               </div>
 
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/superprover")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/super-prover.png"
@@ -249,16 +237,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">1 star</span>
+                      <span className="text-gray-800 dark:text-white text-sm">1 star</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">ADVENTURE</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">ADVENTURE</span>
                   </div>
                 </div>
               </div>
 
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/eth")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/ethereum-last-block.png"
@@ -277,16 +263,14 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">10-40 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">10-40 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">STRATEGY</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">STRATEGY</span>
                   </div>
                 </div>
               </div>
 
-              <div
-                onClick={() => router.push("https://testnet.succinct.xyz/volleyball")}
-                className={`bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30 overflow-hidden group cursor-pointer`}>
+              <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30 overflow-hidden group">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="images/ferris-volleyball.png"
@@ -305,9 +289,9 @@ export default function EarnPage(): ReactElement {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <Star className="h-4 w-4 text-pink-500 mr-1" />
-                      <span className="text-white text-sm">5-20 stars</span>
+                      <span className="text-gray-800 dark:text-white text-sm">5-20 stars</span>
                     </div>
-                    <span className="text-xs text-cyan-400 font-mono">SPORTS</span>
+                    <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono">SPORTS</span>
                   </div>
                 </div>
               </div>
@@ -315,16 +299,14 @@ export default function EarnPage(): ReactElement {
           </CardContent>
         </Card>
 
-
-        <div
-          className="bg-gradient-to-r from-pink-600 to-pink-500 p-6 rounded-lg shadow-lg shadow-pink-500/20 text-center">
-          <h2 className="text-xl font-mono font-bold mb-2">Ready to start earning?</h2>
-          <p className="mb-4">Visit testnet.succinct.xyz to start playing games and earning stars!</p>
+        <div className="bg-gradient-to-r from-pink-600 to-pink-500 p-6 rounded-lg shadow-lg shadow-pink-500/20 text-center mb-8">
+          <h2 className="text-xl font-mono font-bold mb-2 text-white">Ready to start earning?</h2>
+          <p className="mb-4 text-white">Visit testnet.succinct.xyz to start playing games and earning stars!</p>
           <a
             href="https://testnet.succinct.xyz"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-black text-pink-500 hover:text-pink-400 px-4 py-2 rounded-md font-mono"
+            className="inline-flex items-center bg-white dark:bg-black text-pink-500 hover:text-pink-600 dark:hover:text-pink-400 px-4 py-2 rounded-md font-mono"
           >
             GO TO TESTNET
             <ExternalLink className="ml-2 h-4 w-4" />

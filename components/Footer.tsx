@@ -3,12 +3,12 @@ import { Twitter, Github, ExternalLink, MessageCircle, Rss } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-black/80 backdrop-blur-md border-t border-pink-900/30 py-8">
+    <footer className="bg-white/80 dark:bg-black/80 backdrop-blur-md border-t border-pink-300/30 dark:border-pink-900/30 py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-pink-500 font-mono text-lg mb-4">SUCCINCT STATS</h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               Track your Succinct testnet stats and view the global leaderboard. Earn stars by playing games and
               generating proofs.
             </p>
@@ -18,17 +18,26 @@ export function Footer() {
             <h3 className="text-pink-500 font-mono text-lg mb-4">QUICK LINKS</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-pink-400 text-sm flex items-center">
+                <Link
+                  href="/"
+                  className="text-gray-600 dark:text-gray-400 hover:text-pink-400 dark:hover:text-pink-400 text-sm flex items-center"
+                >
                   <span className="mr-2">→</span> Home
                 </Link>
               </li>
               <li>
-                <Link href="/earn" className="text-gray-400 hover:text-pink-400 text-sm flex items-center">
+                <Link
+                  href="/earn"
+                  className="text-gray-600 dark:text-gray-400 hover:text-pink-400 dark:hover:text-pink-400 text-sm flex items-center"
+                >
                   <span className="mr-2">→</span> Earn Stars
                 </Link>
               </li>
               <li>
-                <Link href="/docs" className="text-gray-400 hover:text-pink-400 text-sm flex items-center">
+                <Link
+                  href="/docs"
+                  className="text-gray-600 dark:text-gray-400 hover:text-pink-400 dark:hover:text-pink-400 text-sm flex items-center"
+                >
                   <span className="mr-2">→</span> Documentation
                 </Link>
               </li>
@@ -37,7 +46,7 @@ export function Footer() {
                   href="https://testnet.succinct.xyz"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-pink-400 text-sm flex items-center"
+                  className="text-gray-600 dark:text-gray-400 hover:text-pink-400 dark:hover:text-pink-400 text-sm flex items-center"
                 >
                   <span className="mr-2">→</span> Testnet <ExternalLink className="ml-1 h-3 w-3" />
                 </a>
@@ -52,7 +61,7 @@ export function Footer() {
                 href="https://twitter.com/succinctlabs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black hover:bg-pink-900/30 border border-pink-900/50 p-2 rounded-md transition-colors duration-200"
+                className="bg-white dark:bg-black hover:bg-pink-100/50 dark:hover:bg-pink-900/30 border border-pink-300/50 dark:border-pink-900/50 p-2 rounded-md transition-colors duration-200"
                 aria-label="Twitter"
               >
                 <Twitter className="h-5 w-5 text-pink-500" />
@@ -61,7 +70,7 @@ export function Footer() {
                 href="https://github.com/succinctlabs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black hover:bg-pink-900/30 border border-pink-900/50 p-2 rounded-md transition-colors duration-200"
+                className="bg-white dark:bg-black hover:bg-pink-100/50 dark:hover:bg-pink-900/30 border border-pink-300/50 dark:border-pink-900/50 p-2 rounded-md transition-colors duration-200"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5 text-pink-500" />
@@ -70,7 +79,7 @@ export function Footer() {
                 href="https://discord.gg/succinctlabs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black hover:bg-pink-900/30 border border-pink-900/50 p-2 rounded-md transition-colors duration-200"
+                className="bg-white dark:bg-black hover:bg-pink-100/50 dark:hover:bg-pink-900/30 border border-pink-300/50 dark:border-pink-900/50 p-2 rounded-md transition-colors duration-200"
                 aria-label="Discord"
               >
                 <MessageCircle className="h-5 w-5 text-pink-500" />
@@ -79,7 +88,7 @@ export function Footer() {
                 href="https://blog.succinct.xyz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black hover:bg-pink-900/30 border border-pink-900/50 p-2 rounded-md transition-colors duration-200"
+                className="bg-white dark:bg-black hover:bg-pink-100/50 dark:hover:bg-pink-900/30 border border-pink-300/50 dark:border-pink-900/50 p-2 rounded-md transition-colors duration-200"
                 aria-label="Blog"
               >
                 <Rss className="h-5 w-5 text-pink-500" />
@@ -100,12 +109,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-pink-900/30 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm font-mono mb-4 md:mb-0">
+        <div className="mt-8 pt-6 border-t border-pink-300/30 dark:border-pink-900/30 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-600 dark:text-gray-400 text-sm font-mono mb-4 md:mb-0">
             © {new Date().getFullYear()} Succinct Stats. All rights reserved.
           </p>
           <div className="flex items-center space-x-2">
-            <p className="text-gray-400 text-sm font-mono">Made by</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm font-mono">Made by</p>
             <Link
               href="https://twitter.com/0xEnsp1re"
               target="_blank"

@@ -110,15 +110,15 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="bg-black/50 mt-4  md:mt-0 border-pink-900/50 w-full hover:bg-pink-950/30 text-pink-500"
+                    className="mt-4 md:mt-0 w-full border-gray-300 dark:border-pink-900/50 bg-gray-100 dark:bg-black/50 hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-pink-500"
                 >
                     <Share2 className="h-4 w-4 mr-2" />
                     Share
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-black border my-4 border-pink-900/50 overflow-y-scroll max-h-screen ">
+            <DialogContent className="sm:max-w-md bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-scroll max-h-screen">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-mono text-pink-500">Share Your Stats</DialogTitle>
+                    <DialogTitle className="text-xl font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>
 
                 <div className="flex flex-col items-center space-y-4">
@@ -127,7 +127,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                         ref={shareCardRef}
                         style={{
                             fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif'
-                        }} className="w-full max-w-md p-6 rounded-lg bg-[#050505] border border-pink-900/50 shadow-lg shadow-pink-500/10 relative overflow-hidden mx-auto"
+                        }} className="w-full max-w-md p-6 rounded-lg bg-gray-100 dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg dark:shadow-pink-500/10 relative overflow-hidden mx-auto"
                     >
                         {/* Cyberpunk grid background */}
                         <div
@@ -149,102 +149,74 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                             }}
                         ></div>
 
-                        <div className="flex flex-col items-center space-y-4">
-                            {/* Preview Card */}
-                            <div
-                                ref={shareCardRef}
-                                className="w-full max-w-md p-6 rounded-lg bg-[#050505] border border-pink-900/50 shadow-lg shadow-pink-500/10 relative overflow-hidden mx-auto"
-                            >
-                                {/* Cyberpunk grid background */}
-                                <div
-                                    className="absolute inset-0 opacity-30"
-                                    style={{
-                                        background: `linear-gradient(to right, rgba(236, 72, 153, 0.1) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(236, 72, 153, 0.1) 1px, transparent 1px)`,
-                                        backgroundSize: "20px 20px",
-                                    }}
-                                ></div>
+                        <div className="relative z-10">
+                            {/* Logo and title centered */}
+                            <div className="flex justify-center items-center mb-6">
+                                <div className="flex items-center">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded flex items-center justify-center">
+                                        <span className="text-black font-bold text-xl">S</span>
+                                    </div>
+                                    <span className="text-gray-900 dark:text-pink-500 text-2xl font-bold font-mono ml-2">Succinct Stats</span>
+                                </div>
+                            </div>
 
-                                {/* Glowing circuit lines */}
-                                <div
-                                    className="absolute inset-0 opacity-40"
-                                    style={{
-                                        backgroundImage: `radial-gradient(circle at 20% 30%, rgba(236, 72, 153, 0.3) 0%, transparent 20%),
-                  radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.3) 0%, transparent 20%),
-                  linear-gradient(90deg, transparent 0%, rgba(236, 72, 153, 0.1) 30%, rgba(34, 211, 238, 0.1) 70%, transparent 100%)`,
-                                    }}
-                                ></div>
+                            <div className="bg-gradient-to-r from-pink-600/30 to-pink-500/30 p-3 rounded-md border border-gray-300 dark:border-pink-500/50 mb-6 text-center">
+                                <div className="text-gray-900 dark:text-white text-sm font-mono mb-1">NETWORK RANKING</div>
+                                <div className="text-3xl font-bold text-pink-500 font-mono">TOP {userStats?.topPercent}%</div>
+                            </div>
 
-                                <div className="relative z-10">
-                                    {/* Logo and title centered */}
-                                    <div className="flex justify-center items-center mb-6">
+                            <div className="mb-6">
+                                <h3 className="text-2xl font-mono text-gray-900 dark:text-white mb-4 text-center">{userStats?.name}</h3>
+                                <div className="flex justify-between items-center">
+                                    <div className="text-lg font-mono text-cyan-600 dark:text-cyan-400">RANK</div>
+                                    <div className="bg-gradient-to-r from-pink-600 to-pink-500 px-4 py-2 rounded-md text-white font-bold font-mono text-xl">
+                                        {userStats?.rank}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-5 mb-6">
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">STARS</h3>
                                         <div className="flex items-center">
-                                            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded flex items-center justify-center">
-                                                <span className="text-black font-bold text-xl">S</span>
-                                            </div>
-                                            <span className="text-pink-500 text-2xl font-bold font-mono ml-2">Succinct Stats</span>
+                                            <Star className="text-pink-500 w-5 h-5 mr-1" />
+                                            <span className="text-gray-900 dark:text-white font-mono text-lg">{
+                                                userStats?.stars
+                                            }</span>
                                         </div>
                                     </div>
+                                    <Progress value={userProgress?.stars ? Number(userProgress.stars) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                        <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
+                                    </Progress>
+                                </div>
 
-                                    <div className="bg-gradient-to-r from-pink-600/30 to-pink-500/30 p-3 rounded-md border border-pink-500/50 mb-6 text-center">
-                                        <div className="text-white text-sm font-mono mb-1">NETWORK RANKING</div>
-                                        <div className="text-3xl font-bold text-pink-500 font-mono">TOP {userStats?.topPercent}%</div>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">PROOFS</h3>
+                                        <span className="text-gray-900 dark:text-white font-mono text-lg"> {userStats?.proofs}</span>
                                     </div>
+                                    <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                        <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
+                                    </Progress>
+                                </div>
 
-                                    <div className="mb-6">
-                                        <h3 className="text-2xl font-mono text-white mb-4 text-center">{userStats?.name}</h3>
-                                        <div className="flex justify-between items-center">
-                                            <div className="text-lg font-mono text-cyan-400">RANK</div>
-                                            <div className="bg-gradient-to-r from-pink-600 to-pink-500 px-4 py-2 rounded-md text-white font-bold font-mono text-xl">
-                                                {userStats?.rank}
-                                            </div>
-                                        </div>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">CYCLES</h3>
+                                        <span className="text-gray-900 dark:text-white font-mono text-lg">{
+                                            userStats?.cycles
+                                        }</span>
                                     </div>
+                                    <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                        <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
+                                    </Progress>
+                                </div>
+                            </div>
 
-                                    <div className="space-y-5 mb-6">
-                                        <div>
-                                            <div className="flex justify-between mb-2">
-                                                <h3 className="text-cyan-400 font-mono">STARS</h3>
-                                                <div className="flex items-center">
-                                                    <Star className="text-pink-500 w-5 h-5 mr-1" />
-                                                    <span className="text-white font-mono text-lg">{
-                                                        userStats?.stars
-                                                    }</span>
-                                                </div>
-                                            </div>
-                                            <Progress value={userProgress?.stars ? Number(userProgress.stars) : undefined} className="h-4 bg-pink-900/30">
-                                                <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
-                                            </Progress>
-                                        </div>
-
-                                        <div>
-                                            <div className="flex justify-between mb-2">
-                                                <h3 className="text-cyan-400 font-mono">PROOFS</h3>
-                                                <span className="text-white font-mono text-lg"> {userStats?.proofs}</span>
-                                            </div>
-                                            <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-4 bg-pink-900/30">
-                                                <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
-                                            </Progress>
-                                        </div>
-
-                                        <div>
-                                            <div className="flex justify-between mb-2">
-                                                <h3 className="text-cyan-400 font-mono">CYCLES</h3>
-                                                <span className="text-white font-mono text-lg">{
-                                                    userStats?.cycles
-                                                }</span>
-                                            </div>
-                                            <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-4 bg-pink-900/30">
-                                                <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
-                                            </Progress>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="text-sm text-pink-400 font-mono border-t border-pink-900/30 pt-3">
-                                            testnet.succinct.xyz
-                                        </div>
-                                    </div>
+                            <div className="text-center">
+                                <div className="text-sm text-gray-500 dark:text-pink-400 font-mono border-t border-gray-300 dark:border-pink-900/30 pt-3">
+                                    testnet.succinct.xyz
                                 </div>
                             </div>
                         </div>
@@ -283,7 +255,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                             <div className="flex flex-col sm:flex-row gap-3 w-full">
                                 <Button
                                     variant="outline"
-                                    className="flex-1 border-pink-900/50 bg-transparent hover:bg-pink-950/30 text-white"
+                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white"
                                     onClick={downloadImage}
                                 >
                                     <Download className="h-4 w-4 mr-2" />
@@ -292,7 +264,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
 
                                 <Button
                                     variant="outline"
-                                    className="flex-1 border-pink-900/50 bg-transparent hover:bg-pink-950/30 text-white"
+                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white"
                                     onClick={copyShareLink}
                                 >
                                     {isCopied ? (

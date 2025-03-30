@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactElement, Suspense } from "react"
 import { Leaderboard } from "@/components/Leaderboard"
 import { NetworkStats } from "@/components/NetworkStats"
@@ -8,6 +10,7 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { InvitersLeaderboard } from "@/components/InvitersLeaderboard"
 import { RunningCrab } from "@/components/RunningCrab"
+import { ActivityChart } from "@/components/ActivityChart"
 
 export default function Home(): ReactElement {
   return (
@@ -28,7 +31,10 @@ export default function Home(): ReactElement {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 bg-gradient-to-r from-pink-600 to-pink-500 p-6 rounded-lg shadow-lg shadow-pink-500/20 relative overflow-hidden gradient-border">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/20 via-transparent to-transparent"></div>
-          <h2 className="text-xl font-mono font-bold relative z-10 neon-text" data-text="Play games to earn stars.">
+          <h2
+            className="text-xl font-mono font-bold relative z-10 neon-text text-white"
+            data-text="Play games to earn stars."
+          >
             Play games to earn stars.{" "}
             <Link href="/earn" className="underline hover:text-white">
               Games →
@@ -64,9 +70,17 @@ export default function Home(): ReactElement {
           </Suspense>
         </div>
 
-        <div className="bg-black/40 backdrop-blur-sm p-6 rounded-lg border border-pink-900/50 shadow-lg shadow-pink-500/10 text-center mb-8">
-          <h2 className="text-xl font-mono font-bold mb-2 neon-cyan">EXPLORE THE DOCUMENTATION</h2>
-          <p className="mb-4 text-gray-300">
+        <div className="mb-8">
+          <Suspense fallback={<LoadingStats />}>
+            <ActivityChart />
+          </Suspense>
+        </div>
+
+        <div className="bg-white dark:bg-black/40 backdrop-blur-sm p-6 rounded-lg border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10 text-center mb-8">
+          <h2 className="text-xl font-mono font-bold mb-2 text-cyan-600 dark:text-cyan-400 neon-cyan">
+            EXPLORE THE DOCUMENTATION
+          </h2>
+          <p className="mb-4 text-gray-700 dark:text-gray-300">
             Learn more about Succinct's technology, proofs, and how to participate in the network.
           </p>
           <a

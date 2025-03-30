@@ -59,35 +59,35 @@ export function NetworkStats(): ReactElement {
   }, [totalProvers, totalStars, totalCycles, totalProofs])
 
   return (
-    <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10">
-      <CardHeader className="border-b border-pink-900/30">
+    <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
+      <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
         <CardTitle className="text-xl font-mono text-pink-500">NETWORK STATS</CardTitle>
       </CardHeader>
       <CardContent className="pt-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-black to-pink-950/30 p-4 rounded-lg border border-pink-900/30">
-            <h3 className="text-cyan-400 font-mono mb-2 text-sm lg:text-base">TOTAL PROVERS</h3>
-            <p className="text-xl lg:text-2xl font-bold text-white font-mono">{animatedProvers.toLocaleString()}</p>
+          <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+            <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">TOTAL PROVERS</h3>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedProvers.toLocaleString()}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-black to-pink-950/30 p-4 rounded-lg border border-pink-900/30">
-            <h3 className="text-cyan-400 font-mono mb-2 text-sm lg:text-base">TOTAL STARS</h3>
-            <p className="text-xl lg:text-2xl font-bold text-white font-mono">{animatedStars.toLocaleString()}</p>
+          <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+            <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">TOTAL STARS</h3>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedStars.toLocaleString()}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-black to-pink-950/30 p-4 rounded-lg border border-pink-900/30">
-            <h3 className="text-cyan-400 font-mono mb-2 text-sm lg:text-base">TOTAL CYCLES</h3>
-            <p className="text-xl lg:text-2xl font-bold text-white font-mono">{animatedCycles.toLocaleString()}</p>
+          <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+            <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">TOTAL CYCLES</h3>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedCycles.toLocaleString()}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-black to-pink-950/30 p-4 rounded-lg border border-pink-900/30">
-            <h3 className="text-cyan-400 font-mono mb-2 text-sm lg:text-base">TOTAL PROOFS</h3>
-            <p className="text-xl lg:text-2xl font-bold text-white font-mono">{animatedProofs.toLocaleString()}</p>
+          <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+            <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">TOTAL PROOFS</h3>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedProofs.toLocaleString()}</p>
           </div>
         </div>
 
-        <div className="mt-6 p-4 bg-gradient-to-br from-black to-pink-950/30 rounded-lg border border-pink-900/30">
-          <p className="text-center text-pink-400 font-mono">
+        <div className="mt-6 p-4 bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+          <p className="text-center text-pink-500 dark:text-pink-400 font-mono">
             Welcome to the Succinct Network. Help restore trust, earn stars, and secure humanity's future!
           </p>
         </div>

@@ -5,12 +5,12 @@
 @tailwind utilities;
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
-    word-wrap: break-word;
+    text-wrap: balance;
   }
 }
 
@@ -92,14 +92,12 @@ body {
 
 /* Custom styles for the cyberpunk theme */
 body {
-  background-color: #050505;
-  color: white;
   position: relative;
   overflow-x: hidden;
 }
 
 /* Unique cyberpunk grid background */
-body::before {
+body.dark::before {
   content: "";
   position: fixed;
   top: 0;
@@ -116,8 +114,25 @@ body::before {
   z-index: -2;
 }
 
+body:not(.dark)::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(236, 72, 153, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(236, 72, 153, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: -2;
+}
+
 /* Glowing circuit lines */
-body::after {
+body.dark::after {
   content: "";
   position: fixed;
   top: 0;
@@ -145,6 +160,34 @@ body::after {
   pointer-events: none;
 }
 
+body:not(.dark)::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(236, 72, 153, 0.05) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(34, 211, 238, 0.05) 0%,
+      transparent 20%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(236, 72, 153, 0.02) 30%,
+      rgba(34, 211, 238, 0.02) 70%,
+      transparent 100%
+    );
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* Digital noise overlay */
 .digital-noise {
   position: fixed;
@@ -159,12 +202,20 @@ body::after {
 }
 
 /* Neon glow for text */
-.neon-text {
+.dark .neon-text {
   text-shadow: 0 0 5px rgba(236, 72, 153, 0.7), 0 0 10px rgba(236, 72, 153, 0.5);
 }
 
-.neon-cyan {
+.neon-text {
+  text-shadow: 0 0 3px rgba(236, 72, 153, 0.4), 0 0 5px rgba(236, 72, 153, 0.3);
+}
+
+.dark .neon-cyan {
   text-shadow: 0 0 5px rgba(34, 211, 238, 0.7), 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.neon-cyan {
+  text-shadow: 0 0 3px rgba(34, 211, 238, 0.4), 0 0 5px rgba(34, 211, 238, 0.3);
 }
 
 /* Animated gradient border */
@@ -309,6 +360,14 @@ body::after {
   background: #0f0f0f;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #0f0f0f;
+}
+
+:not(.dark) ::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
 ::-webkit-scrollbar-thumb {
   background: rgba(236, 72, 153, 0.5);
   border-radius: 4px;
@@ -391,4 +450,37 @@ body::after {
   50% {
     border-color: #ec4899;
   }
+}
+
+/* Light mode background */
+body:not(.dark) {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Dark mode background */
+body.dark {
+  background-color: #050505;
+  color: white;
+}
+
+/* Fix for dark mode in specific components */
+.dark .bg-white {
+  background-color: #050505;
+}
+
+.dark .text-gray-800 {
+  color: #f8f9fa;
+}
+
+.dark .border-pink-300\/50 {
+  border-color: rgba(236, 72, 153, 0.5);
+}
+
+html.dark body {
+  background-color: #050505;
+}
+
+html:not(.dark) body {
+  background-color: #f8f9fa;
 }

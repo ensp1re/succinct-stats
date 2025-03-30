@@ -72,8 +72,8 @@ export function UserSearch() {
   }
 
   return (
-    <Card className="bg-black border border-pink-900/50 shadow-lg shadow-pink-500/10">
-      <CardHeader className="border-b border-pink-900/30">
+    <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
+      <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
         <CardTitle className="text-xl font-mono text-pink-500">FIND YOUR STATS</CardTitle>
       </CardHeader>
       <CardContent className="pt-6">
@@ -85,7 +85,7 @@ export function UserSearch() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="bg-black border border-pink-900/50 rounded-md px-4 py-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 rounded-md px-4 py-2 text-gray-800 dark:text-white w-full focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
           </div>
           <Button
@@ -108,17 +108,17 @@ export function UserSearch() {
         </div>
 
         {error && (
-          <div className="bg-pink-950/20 border border-pink-900/50 rounded-md p-4 mb-4 flex items-start">
+          <div className="bg-pink-50 dark:bg-pink-950/20 border border-pink-300/50 dark:border-pink-900/50 rounded-md p-4 mb-4 flex items-start">
             <AlertCircle className="text-pink-500 mr-2 h-5 w-5 mt-0.5" />
-            <p className="text-pink-200">{error}</p>
+            <p className="text-pink-700 dark:text-pink-200">{error}</p>
           </div>
         )}
 
         {userStats && (
-          <div className="bg-gradient-to-br from-black to-pink-950/20 border border-pink-900/50 rounded-md p-6 animate-fadeIn">
+          <div className="bg-gradient-to-br from-white to-pink-50/50 dark:from-black dark:to-pink-950/20 border border-pink-300/50 dark:border-pink-900/50 rounded-md p-6 animate-fadeIn">
             <div className="flex flex-col md:flex-row justify-between mb-6">
               <div>
-                <h3 className="text-2xl font-mono text-white mb-1">
+                <h3 className="text-2xl font-mono text-gray-800 dark:text-white mb-1">
                   <Link
                     href={`https://x.com/${userStats.name}`}
                     target="_blank"
@@ -129,61 +129,59 @@ export function UserSearch() {
                     <Twitter className="ml-1 w-4 h-4" />
                   </Link>
                 </h3>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
                   Invited by: {userStats.invitedBy !== "-" ? userStats.invitedBy : "None"}
                 </p>
               </div>
               <div className="mt-4 md:mt-0 flex flex-col items-start md:flex-row md:items-center space-x-4">
                 <div className="flex space-x-2">
-                  <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
-                    <span className="text-gray-400 text-sm font-mono">RANK</span>
+                  <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50">
+                    <span className="text-gray-600 dark:text-gray-400 text-sm font-mono">RANK</span>
                     <div className="text-2xl font-bold text-pink-500 font-mono">{userStats.rank}</div>
                   </div>
-                  <div className="bg-pink-950/30 px-4 py-2 rounded-md border border-pink-900/50">
-                    <span className="text-gray-400 text-sm font-mono">TOP</span>
+                  <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50">
+                    <span className="text-gray-600 dark:text-gray-400 text-sm font-mono">TOP</span>
                     <div className="text-2xl font-bold text-pink-500 font-mono">
                       {userStats.topPercent}%
                     </div>
                   </div>
-
                 </div>
                 <Suspense fallback={null}>
                   <ShareStats user={userStats} progress={progress} />
                 </Suspense>
-
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div>
                 <div className="flex justify-between mb-2">
-                  <h3 className="text-cyan-400 font-mono">STARS</h3>
+                  <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">STARS</h3>
                   <div className="flex items-center">
                     <Star className="text-pink-500 w-4 h-4 mr-1" />
-                    <span className="text-white font-mono">{userStats.stars}</span>
+                    <span className="text-gray-800 dark:text-white font-mono">{userStats.stars}</span>
                   </div>
                 </div>
-                <Progress value={progress.stars} className="h-3 bg-pink-900/30">
+                <Progress value={progress.stars} className="h-3 bg-pink-100 dark:bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
                 </Progress>
               </div>
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <h3 className="text-cyan-400 font-mono">PROOFS</h3>
-                  <span className="text-white font-mono">{userStats.proofs}</span>
+                  <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">PROOFS</h3>
+                  <span className="text-gray-800 dark:text-white font-mono">{userStats.proofs}</span>
                 </div>
-                <Progress value={progress.proofs} className="h-3 bg-pink-900/30">
+                <Progress value={progress.proofs} className="h-3 bg-pink-100 dark:bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                 </Progress>
               </div>
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <h3 className="text-cyan-400 font-mono">CYCLES</h3>
-                  <span className="text-white font-mono">{userStats.cycles}</span>
+                  <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">CYCLES</h3>
+                  <span className="text-gray-800 dark:text-white font-mono">{userStats.cycles}</span>
                 </div>
-                <Progress value={progress.cycles} className="h-3 bg-pink-900/30">
+                <Progress value={progress.cycles} className="h-3 bg-pink-100 dark:bg-pink-900/30">
                   <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                 </Progress>
               </div>
@@ -192,7 +190,7 @@ export function UserSearch() {
             <div className="text-center mt-4">
               <Link
                 href="/earn"
-                className="text-pink-400 hover:text-pink-300 text-sm font-mono inline-flex items-center"
+                className="text-pink-500 hover:text-pink-600 dark:hover:text-pink-300 text-sm font-mono inline-flex items-center"
               >
                 <Star className="w-3 h-3 mr-1" />
                 Learn how to earn more stars
@@ -202,8 +200,8 @@ export function UserSearch() {
         )}
 
         {!userStats && !error && (
-          <div className="text-center py-6 text-gray-400">
-            <Search className="mx-auto h-8 w-8 mb-2 text-pink-500/50" />
+          <div className="text-center py-6 text-gray-600 dark:text-gray-400">
+            <Search className="mx-auto h-8 w-8 mb-2 text-pink-400 dark:text-pink-500/50" />
             <p>Enter your X (Twitter) username to find your stats on the Succinct network.</p>
             <p className="text-sm mt-2">Example: @username or username</p>
           </div>
