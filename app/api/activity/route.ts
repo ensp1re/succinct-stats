@@ -2,12 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";
-import {
-  format,
-  parse as parseDate,
-  isWithinInterval,
-  addDays,
-} from "date-fns";
+import { format, parse as parseDate, addDays } from "date-fns";
 
 // Define the structure of a leaderboard entry from CSV
 interface LeaderboardEntry {
@@ -29,6 +24,7 @@ interface DailyActivity {
   activeUsers: number;
   topEarner: string;
   topEarnerStars: number;
+  hasActualData: boolean; // Flag to indicate if this day has actual data
 }
 
 // Define the structure of our API response
@@ -54,43 +50,74 @@ function parseCSVFile(filePath: string): LeaderboardEntry[] {
   }
 }
 
-// Helper function to get available CSV files within a date range
-function getCSVFilesInRange(startDate: Date, endDate: Date): string[] {
-  const dataDir = path.join(process.cwd(), "public", "leaderboards");
+// Helper function to get all available CSV files
+function getAllCSVFiles(): { path: string; date: Date }[] {
+  const result: { path: string; date: Date }[] = [];
 
-  // Ensure the data directory exists
-  if (!fs.existsSync(dataDir)) {
-    console.error("Data directory does not exist:", dataDir);
-    return [];
-  }
+  // Check both possible directories
+  const dataDirs = [
+    path.join(process.cwd(), "data"),
+    path.join(process.cwd(), "public", "leaderboards"),
+  ];
 
-  // Get all CSV files in the directory
-  const files = fs
-    .readdirSync(dataDir)
-    .filter(
-      (file) =>
-        file.startsWith("succinct_leaderboard@") && file.endsWith(".csv")
-    );
+  for (const dataDir of dataDirs) {
+    // Skip if directory doesn't exist
+    if (!fs.existsSync(dataDir)) continue;
 
-  // Filter files by date range
-  return files
-    .filter((file) => {
+    // Get all CSV files in the directory
+    const files = fs
+      .readdirSync(dataDir)
+      .filter(
+        (file) =>
+          (file.startsWith("leaderboard@") ||
+            file.startsWith("succinct_leaderboard@")) &&
+          file.endsWith(".csv")
+      );
+
+    for (const file of files) {
       try {
-        // Extract date from filename (format: succinct_leaderboard@MM_DD_YYYY.csv)
-        const dateStr = file
-          .replace("succinct_leaderboard@", "")
-          .replace(".csv", "");
-        const [month, day, year] = dateStr.split("_").map(Number);
-        const fileDate = new Date(year, month - 1, day); // month is 0-indexed in JS Date
+        // Extract date from filename
+        let dateStr;
+        if (file.startsWith("leaderboard@")) {
+          dateStr = file.replace("leaderboard@", "").replace(".csv", "");
+        } else {
+          dateStr = file
+            .replace("succinct_leaderboard@", "")
+            .replace(".csv", "");
+        }
 
-        // Check if the file date is within our range
-        return isWithinInterval(fileDate, { start: startDate, end: endDate });
+        // Parse date in MM_DD_YYYY format
+        const [month, day, year] = dateStr.split("_").map(Number);
+        const fileDate = new Date(year, month - 1, day);
+
+        // Log for debugging
+        console.log(
+          `Parsed file: ${file}, Date: ${fileDate.toISOString().split("T")[0]}`
+        );
+
+        result.push({
+          path: path.join(dataDir, file),
+          date: fileDate,
+        });
       } catch (error) {
         console.error(`Error parsing date from filename ${file}:`, error);
-        return false;
       }
-    })
-    .map((file) => path.join(dataDir, file));
+    }
+  }
+
+  // Sort by date (oldest first)
+  result.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  // Log all parsed files for debugging
+  console.log(
+    "All CSV files:",
+    result.map((f) => ({
+      path: path.basename(f.path),
+      date: f.date.toISOString().split("T")[0],
+    }))
+  );
+
+  return result;
 }
 
 // Helper function to calculate daily metrics from leaderboard data
@@ -122,7 +149,7 @@ function calculateDailyMetrics(
 
   // Calculate total stars earned for the day and find top earner
   let starsEarned = 0;
-  let topEarner = { name: "N/A", stars: 0, increase: 0 };
+  let topEarner = { name: "N/A", starsEarned: 0 };
 
   if (previousDayData) {
     const previousStarsByUser = new Map();
@@ -133,6 +160,9 @@ function calculateDailyMetrics(
       );
     });
 
+    // Track star increases for each user
+    const userStarIncreases = new Map<string, number>();
+
     currentDayData.forEach((entry) => {
       const currentStars = Number.parseInt(entry.Stars.replace(/,/g, ""), 10);
       const previousStars = previousStarsByUser.get(entry.Name) || 0;
@@ -141,26 +171,22 @@ function calculateDailyMetrics(
       // Add to total stars earned
       starsEarned += starIncrease;
 
-      // Check if this user earned more stars than the current top earner
-      if (starIncrease > topEarner.increase) {
-        topEarner = {
-          name: entry.Name,
-          stars: currentStars,
-          increase: starIncrease,
-        };
+      // Store this user's star increase
+      userStarIncreases.set(entry.Name, starIncrease);
+    });
+
+    // Find the user with the highest star increase
+    let maxIncrease = 0;
+    userStarIncreases.forEach((increase, username) => {
+      if (increase > maxIncrease) {
+        maxIncrease = increase;
+        topEarner = { name: username, starsEarned: increase };
       }
     });
   } else {
     // If no previous day data, we can't accurately calculate stars earned
     starsEarned = 0;
-
-    // Just use the user with the highest total stars as the top earner
-    currentDayData.forEach((entry) => {
-      const stars = Number.parseInt(entry.Stars.replace(/,/g, ""), 10);
-      if (stars > topEarner.stars) {
-        topEarner = { name: entry.Name, stars, increase: 0 };
-      }
-    });
+    topEarner = { name: "N/A", starsEarned: 0 };
   }
 
   // Calculate proofs generated for the day
@@ -193,7 +219,7 @@ function calculateDailyMetrics(
     proofsGenerated,
     activeUsers,
     topEarner: topEarner.name,
-    topEarnerStars: topEarner.stars,
+    topEarnerStars: topEarner.starsEarned,
   };
 }
 
@@ -233,11 +259,18 @@ export async function GET(request: NextRequest) {
     // Set end date to Sunday (6 days after Monday)
     endDate = addDays(startDate, 6);
 
-    // Get CSV files for the date range
-    const csvFiles = getCSVFilesInRange(startDate, endDate);
+    console.log(
+      `Adjusted date range: ${format(startDate, "yyyy-MM-dd")} to ${format(
+        endDate,
+        "yyyy-MM-dd"
+      )}`
+    );
+
+    // Get all CSV files sorted by date
+    const allCSVFiles = getAllCSVFiles();
 
     // If no files found, return empty array for each day
-    if (csvFiles.length === 0) {
+    if (allCSVFiles.length === 0) {
       const emptyData: DailyActivity[] = [];
 
       // Create empty data for each day in the week
@@ -252,6 +285,7 @@ export async function GET(request: NextRequest) {
           activeUsers: 0,
           topEarner: "N/A",
           topEarnerStars: 0,
+          hasActualData: false,
         });
       }
 
@@ -263,77 +297,68 @@ export async function GET(request: NextRequest) {
 
     // Process each day in the week
     const activityData: DailyActivity[] = [];
-    let previousDayData: LeaderboardEntry[] | null = null;
 
     // For each day in the week (Monday to Sunday)
     for (let i = 0; i < 7; i++) {
       const currentDate = addDays(startDate, i);
-      const formattedDate = format(currentDate, "MM_dd_yyyy");
-      const expectedFilename = `succinct_leaderboard@${formattedDate}.csv`;
-      const expectedFilePath = path.join(
-        process.cwd(),
-        "data",
-        expectedFilename
+      const currentDateStr = format(currentDate, "yyyy-MM-dd");
+
+      // First try to find an exact match for this date
+      const exactMatch = allCSVFiles.find(
+        (file) => format(file.date, "yyyy-MM-dd") === currentDateStr
       );
 
-      // Check if we have data for this day
-      let currentDayData: LeaderboardEntry[] = [];
-      if (fs.existsSync(expectedFilePath)) {
-        currentDayData = parseCSVFile(expectedFilePath);
-      } else {
-        // If no data for this specific day, use the closest previous day's data
-        const closestPreviousFile = csvFiles
-          .filter((file) => {
-            const fileDate = parseDate(
-              file.split("@")[1].replace(".csv", ""),
-              "MM_dd_yyyy",
-              new Date()
-            );
-            return fileDate <= currentDate;
-          })
-          .sort((a, b) => {
-            const dateA = parseDate(
-              a.split("@")[1].replace(".csv", ""),
-              "MM_dd_yyyy",
-              new Date()
-            );
-            const dateB = parseDate(
-              b.split("@")[1].replace(".csv", ""),
-              "MM_dd_yyyy",
-              new Date()
-            );
-            return dateB.getTime() - dateA.getTime(); // Sort descending
-          })[0];
+      if (exactMatch) {
+        console.log(
+          `Found exact match for ${currentDateStr}: ${path.basename(
+            exactMatch.path
+          )}`
+        );
 
-        if (closestPreviousFile) {
-          currentDayData = parseCSVFile(closestPreviousFile);
+        // Find the previous file (from before this date)
+        const previousFile = allCSVFiles
+          .filter((file) => file.date < currentDate)
+          .sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+
+        // Parse current day data
+        const currentDayData = parseCSVFile(exactMatch.path);
+
+        // Parse previous day data if available
+        let previousDayData: LeaderboardEntry[] | null = null;
+        if (previousFile) {
+          previousDayData = parseCSVFile(previousFile.path);
+          console.log(
+            `Using previous file for comparison: ${path.basename(
+              previousFile.path
+            )}`
+          );
+        } else {
+          console.log(`No previous file found for comparison`);
         }
-      }
 
-      // Calculate metrics for this day
-      if (currentDayData.length > 0) {
+        // Calculate metrics for this day
         const metrics = calculateDailyMetrics(currentDayData, previousDayData);
 
-        // Add to activity data
-        activityData.push({
-          day: format(currentDate, "EEE"), // Day abbreviation (Mon, Tue, etc.)
-          date: format(currentDate, "yyyy-MM-dd"),
-          ...metrics,
-        });
-
-        // Update previous day data for next iteration
-        previousDayData = currentDayData;
-      } else {
-        // If no data available, add placeholder with zeros
+        // Add to activity data with hasActualData flag set to true
         activityData.push({
           day: format(currentDate, "EEE"),
-          date: format(currentDate, "yyyy-MM-dd"),
+          date: currentDateStr,
+          ...metrics,
+          hasActualData: true,
+        });
+      } else {
+        // No data file exists for this date, use zeros
+        console.log(`No file found for ${currentDateStr}, using zeros`);
+        activityData.push({
+          day: format(currentDate, "EEE"),
+          date: currentDateStr,
           newUsers: 0,
           starsEarned: 0,
           proofsGenerated: 0,
           activeUsers: 0,
           topEarner: "N/A",
           topEarnerStars: 0,
+          hasActualData: false,
         });
       }
     }

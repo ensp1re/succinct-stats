@@ -55,6 +55,8 @@ export function ActivityChart(): ReactElement {
             try {
                 const res = await fetchActivityData(dateRange.start, dateRange.end)
                 const data = res.data as DailyActivity[]
+
+                console.log("Activity Data:", res)
                 setActivityData(data)
 
                 const totalStars = Array.isArray(data) ? data.reduce((sum: number, day: DailyActivity) => sum + day.starsEarned, 0) : 0
