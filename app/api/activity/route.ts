@@ -4,7 +4,6 @@ import path from "path";
 import { parse } from "csv-parse/sync";
 import { format, parse as parseDate, addDays } from "date-fns";
 
-// Define the structure of a leaderboard entry from CSV
 interface LeaderboardEntry {
   Rank: string;
   Name: string;
@@ -14,7 +13,6 @@ interface LeaderboardEntry {
   Stars: string;
 }
 
-// Define the structure of our processed daily activity data
 interface DailyActivity {
   day: string;
   date: string;
@@ -24,10 +22,9 @@ interface DailyActivity {
   activeUsers: number;
   topEarner: string;
   topEarnerStars: number;
-  hasActualData: boolean; // Flag to indicate if this day has actual data
+  hasActualData: boolean;
 }
 
-// Define the structure of our API response
 interface ActivityResponse {
   success: boolean;
   data?: DailyActivity[];
