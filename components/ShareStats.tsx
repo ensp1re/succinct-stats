@@ -256,7 +256,6 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                     variant="outline"
                                     className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white text-sm"
                                     onClick={downloadImage}
-                                    style={{ marginRight: 'auto' }}
                                 >
                                     <Download className="h-4 w-4 mr-2" />
                                     Download Image
