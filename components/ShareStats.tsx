@@ -120,14 +120,13 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                 <DialogHeader>
                     <DialogTitle className="text-lg font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>
-
                 <div className="flex flex-col items-center space-y-4">
                     {/* Preview Card */}
                     <div
                         ref={shareCardRef}
                         style={{
                             fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif'
-                        }} className="w-full max-w-xs p-4 rounded-md bg-gray-100 dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg dark:shadow-pink-500/10 relative overflow-hidden mx-auto"
+                        }} className="w-full max-w-xs p-4 rounded-md bg-gray-100 dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg dark:shadow-pink-500/10 relative overflow-hidden "
                     >
                         {/* Cyberpunk grid background */}
                         <div
@@ -257,6 +256,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                     variant="outline"
                                     className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white text-sm"
                                     onClick={downloadImage}
+                                    style={{ marginRight: 'auto' }}
                                 >
                                     <Download className="h-4 w-4 mr-2" />
                                     Download Image
