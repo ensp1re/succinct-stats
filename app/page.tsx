@@ -9,7 +9,7 @@ import { StarDistribution } from "@/components/StarDistribution"
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { InvitersLeaderboard } from "@/components/InvitersLeaderboard"
-import { RunningCrab } from "@/components/RunningCrab"
+// import { RunningCrab } from "@/components/RunningCrab"
 import { ActivityChart } from "@/components/ActivityChart"
 import { EarlyAccess } from "@/components/EarlyAccess"
 import { ProofsLeaderboard } from "@/components/ProofsLeaderboard"
@@ -37,7 +37,7 @@ export default function Home(): ReactElement {
 
   return (
     <div suppressHydrationWarning className="min-h-screen">
-      <RunningCrab speed={5} escapeDistance={150} size={50} enableSound={false} />
+      {/* <RunningCrab speed={5} escapeDistance={150} size={50} enableSound={false} />
       <RunningCrab
         speed={3}
         escapeDistance={200}
@@ -49,7 +49,7 @@ export default function Home(): ReactElement {
         escapeDistance={180}
         size={30}
         initialPosition={{ x: 400, y: 400 }}
-        enableSound={false} />
+        enableSound={false} /> */}
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 bg-gradient-to-r from-pink-600 to-pink-500 p-6 rounded-lg shadow-lg shadow-pink-500/20 relative overflow-hidden gradient-border">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/20 via-transparent to-transparent"></div>

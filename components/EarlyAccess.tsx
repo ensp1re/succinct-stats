@@ -108,7 +108,7 @@ export function EarlyAccess({ totalSpots = 25000, remainingSpots = 1340 }: Early
                                             How to get a code <Info className="h-3 w-3 ml-1" />
                                         </button>
                                     </DialogTrigger>
-                                    <DialogContent className="[&>button]:hidden p-0 sm:max-w-md bg-black/95 border border-pink-500/50 rounded-lg overflow-hidden">
+                                    <DialogContent className="[&>button]:hidden p-0  sm:max-w-md bg-black/95 border border-pink-500/50 rounded-lg overflow-hidden">
                                         <div className="relative p-6">
                                             <div className="flex items-center mb-6">
                                                 <Code className="h-5 w-5 text-pink-500 mr-2" />
@@ -193,7 +193,7 @@ export function EarlyAccess({ totalSpots = 25000, remainingSpots = 1340 }: Early
 
                                             <DialogClose asChild>
                                                 <button
-                                                    className="absolute right-4 top-4 rounded-full bg-transparent hover:bg-pink-900/30 p-1 transition-colors duration-200"
+                                                    className="absolute right-4 top-6  rounded-full bg-transparent hover:bg-pink-900/30 p-1 transition-colors duration-200"
                                                 >
                                                     <X className="h-5 w-5 text-pink-500" />
                                                     <span className="sr-only">Close</span>

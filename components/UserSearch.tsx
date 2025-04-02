@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, Star, AlertCircle, Twitter, Sparkles, User, ArrowRight } from "lucide-react"
 import { getEntryByUsername } from "@/lib/csv-service"
-import type { LeaderboardEntry } from "@/lib/types"
+import { LeaderboardEntry } from "@/lib/types"
 import { Progress } from "@/components/ui/progress"
 import dynamic from "next/dynamic"
 
@@ -171,15 +171,15 @@ export function UserSearch() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-4 md:mt-0 flex items-center space-x-4">
-                    <div className="flex space-x-2">
-                      <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50 shadow-sm">
+                  <div className="mt-4 md:mt-0 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex-1 bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50 shadow-sm text-center flex flex-col items-center">
                         <span className="text-gray-600 dark:text-gray-400 text-sm font-mono">RANK</span>
-                        <div className="text-2xl font-bold text-pink-500 font-mono">{userStats.rank}</div>
+                        <div className="text-2xl font-bold text-pink-500 font-mono break-words text-center">{userStats.rank}</div>
                       </div>
-                      <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50 shadow-sm">
+                      <div className="flex-1 bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-md border border-pink-300/50 dark:border-pink-900/50 shadow-sm text-center flex flex-col items-center">
                         <span className="text-gray-600 dark:text-gray-400 text-sm font-mono">TOP</span>
-                        <div className="text-2xl font-bold text-pink-500 font-mono">
+                        <div className="text-2xl font-bold text-pink-500 font-mono break-words">
                           {userStats.topPercent}%
                         </div>
                       </div>
@@ -288,12 +288,4 @@ export function UserSearch() {
   )
 }
 
-// Add this to your globals.css or create a new animation
-const Link = ({ children, href, className, target, rel }: { children: React.ReactNode; href: string; className?: string; target?: string; rel?: string }) => {
-  return (
-    <a href={href} className={className} target={target} rel={rel}>
-      {children}
-    </a>
-  )
-}
 

@@ -110,15 +110,15 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="mt-4 md:mt-0 w-full border-gray-300 dark:border-pink-900/50 bg-gray-100 dark:bg-black/50 hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-pink-500"
+                    className="mt-4 md:mt-0 w-full md:w-auto px-4 border-gray-300 dark:border-pink-900/50 bg-gray-100 dark:bg-black/50 hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-pink-500 text-sm"
                 >
                     <Share2 className="h-4 w-4 mr-2" />
                     Share
                 </Button>
             </DialogTrigger>
-            <DialogContent className="[&>button]:hidden  sm:max-w-md bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-scroll max-h-screen">
+            <DialogContent className="[&>button]:hidden mx-4 sm:max-w-sm bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-auto max-h-[90vh] p-4 rounded-lg">
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
+                    <DialogTitle className="text-lg font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>
 
                 <div className="flex flex-col items-center space-y-4">
@@ -127,7 +127,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                         ref={shareCardRef}
                         style={{
                             fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif'
-                        }} className="w-full max-w-md p-6 rounded-lg bg-gray-100 dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg dark:shadow-pink-500/10 relative overflow-hidden mx-auto"
+                        }} className="w-full max-w-xs p-4 rounded-md bg-gray-100 dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg dark:shadow-pink-500/10 relative overflow-hidden mx-auto"
                     >
                         {/* Cyberpunk grid background */}
                         <div
@@ -135,7 +135,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                             style={{
                                 background: `linear-gradient(to right, rgba(236, 72, 153, 0.1) 1px, transparent 1px),
                   linear-gradient(to bottom, rgba(236, 72, 153, 0.1) 1px, transparent 1px)`,
-                                backgroundSize: "20px 20px",
+                                backgroundSize: "15px 15px",
                             }}
                         ></div>
 
@@ -151,71 +151,71 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
 
                         <div className="relative z-10">
                             {/* Logo and title centered */}
-                            <div className="flex justify-center items-center mb-6">
+                            <div className="flex justify-center items-center mb-4">
                                 <div className="flex items-center">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded flex items-center justify-center">
-                                        <span className="text-black font-bold text-xl">S</span>
+                                    <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded flex items-center justify-center">
+                                        <span className="text-black font-bold text-lg">S</span>
                                     </div>
-                                    <span className="text-gray-900 dark:text-pink-500 text-2xl font-bold font-mono ml-2">Succinct Stats</span>
+                                    <span className="text-gray-900 dark:text-pink-500 text-lg font-bold font-mono ml-2">Succinct Stats</span>
                                 </div>
                             </div>
 
-                            <div className="bg-gradient-to-r from-pink-600/30 to-pink-500/30 p-3 rounded-md border border-gray-300 dark:border-pink-500/50 mb-6 text-center">
-                                <div className="text-gray-900 dark:text-white text-sm font-mono mb-1">NETWORK RANKING</div>
-                                <div className="text-3xl font-bold text-pink-500 font-mono">TOP {userStats?.topPercent}%</div>
+                            <div className="bg-gradient-to-r from-pink-600/30 to-pink-500/30 p-2 rounded-md border border-gray-300 dark:border-pink-500/50 mb-4 text-center">
+                                <div className="text-gray-900 dark:text-white text-xs font-mono mb-1">NETWORK RANKING</div>
+                                <div className="text-xl font-bold text-pink-500 font-mono">TOP {userStats?.topPercent}%</div>
                             </div>
 
-                            <div className="mb-6">
-                                <h3 className="text-2xl font-mono text-gray-900 dark:text-white mb-4 text-center">{userStats?.name}</h3>
+                            <div className="mb-4">
+                                <h3 className="text-lg font-mono text-gray-900 dark:text-white mb-2 text-center">{userStats?.name}</h3>
                                 <div className="flex justify-between items-center">
-                                    <div className="text-lg font-mono text-cyan-600 dark:text-cyan-400">RANK</div>
-                                    <div className="bg-gradient-to-r from-pink-600 to-pink-500 px-4 py-2 rounded-md text-white font-bold font-mono text-xl">
+                                    <div className="text-sm font-mono text-cyan-600 dark:text-cyan-400">RANK</div>
+                                    <div className="bg-gradient-to-r from-pink-600 to-pink-500 px-3 py-1 rounded-md text-white font-bold font-mono text-lg">
                                         {userStats?.rank}
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-5 mb-6">
+                            <div className="space-y-4 mb-4">
                                 <div>
-                                    <div className="flex justify-between mb-2">
-                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">STARS</h3>
+                                    <div className="flex justify-between mb-1">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">STARS</h3>
                                         <div className="flex items-center">
-                                            <Star className="text-pink-500 w-5 h-5 mr-1" />
-                                            <span className="text-gray-900 dark:text-white font-mono text-lg">{
+                                            <Star className="text-pink-500 w-4 h-4 mr-1" />
+                                            <span className="text-gray-900 dark:text-white font-mono text-sm">{
                                                 userStats?.stars
                                             }</span>
                                         </div>
                                     </div>
-                                    <Progress value={userProgress?.stars ? Number(userProgress.stars) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                    <Progress value={userProgress?.stars ? Number(userProgress.stars) : undefined} className="h-3 bg-gray-300 dark:bg-pink-900/30">
                                         <div className="h-full bg-gradient-to-r from-pink-600 to-pink-400 rounded-full" />
                                     </Progress>
                                 </div>
 
                                 <div>
-                                    <div className="flex justify-between mb-2">
-                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">PROOFS</h3>
-                                        <span className="text-gray-900 dark:text-white font-mono text-lg"> {userStats?.proofs}</span>
+                                    <div className="flex justify-between mb-1">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">PROOFS</h3>
+                                        <span className="text-gray-900 dark:text-white font-mono text-sm"> {userStats?.proofs}</span>
                                     </div>
-                                    <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                    <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-3 bg-gray-300 dark:bg-pink-900/30">
                                         <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                                     </Progress>
                                 </div>
 
                                 <div>
-                                    <div className="flex justify-between mb-2">
-                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">CYCLES</h3>
-                                        <span className="text-gray-900 dark:text-white font-mono text-lg">{
+                                    <div className="flex justify-between mb-1">
+                                        <h3 className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">CYCLES</h3>
+                                        <span className="text-gray-900 dark:text-white font-mono text-sm">{
                                             userStats?.cycles
                                         }</span>
                                     </div>
-                                    <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-4 bg-gray-300 dark:bg-pink-900/30">
+                                    <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-3 bg-gray-300 dark:bg-pink-900/30">
                                         <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
                                     </Progress>
                                 </div>
                             </div>
 
                             <div className="text-center">
-                                <div className="text-sm text-gray-500 dark:text-pink-400 font-mono border-t border-gray-300 dark:border-pink-900/30 pt-3">
+                                <div className="text-xs text-gray-500 dark:text-pink-400 font-mono border-t border-gray-300 dark:border-pink-900/30 pt-2">
                                     testnet.succinct.xyz
                                 </div>
                             </div>
@@ -228,14 +228,14 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <a href={getTwitterShareUrl()} target="_blank" rel="noopener noreferrer" className="w-full">
-                                            <Button className="w-full bg-[#1DA1F2] hover:bg-[#1a94e0] text-white">
+                                            <Button className="w-full bg-[#1DA1F2] hover:bg-[#1a94e0] text-white text-sm">
                                                 <Twitter className="h-4 w-4 mr-2" />
                                                 Share on Twitter
                                             </Button>
                                         </a>
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        <p className="text-xs max-w-[250px]">
+                                        <p className="text-xs max-w-[200px]">
                                             After clicking, download and attach the image to your tweet for the best impact!
                                         </p>
                                     </TooltipContent>
@@ -247,15 +247,15 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
 
                     {isGeneratingImage ? (
                         <div className="flex items-center justify-center py-2">
-                            <div className="w-5 h-5 border-t-2 border-pink-500 border-r-2 border-pink-500/50 rounded-full animate-spin mr-2"></div>
-                            <span className="text-pink-500 font-mono text-sm">GENERATING IMAGE...</span>
+                            <div className="w-4 h-4 border-t-2 border-pink-500 border-r-2 border-pink-500/50 rounded-full animate-spin mr-2"></div>
+                            <span className="text-pink-500 font-mono text-xs">GENERATING IMAGE...</span>
                         </div>
                     ) : imageUrl && (
                         <div className="flex flex-col gap-2 w-full">
-                            <div className="flex flex-col sm:flex-row gap-3 w-full">
+                            <div className="flex flex-col sm:flex-row gap-2 w-full">
                                 <Button
                                     variant="outline"
-                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white"
+                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white text-sm"
                                     onClick={downloadImage}
                                 >
                                     <Download className="h-4 w-4 mr-2" />
@@ -264,7 +264,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
 
                                 <Button
                                     variant="outline"
-                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white"
+                                    className="flex-1 border-gray-300 dark:border-pink-900/50 bg-transparent hover:bg-gray-200 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white text-sm"
                                     onClick={copyShareLink}
                                 >
                                     {isCopied ? (
@@ -285,7 +285,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
 
                     <DialogClose asChild>
                         <button
-                            className="absolute right-4 top-2 rounded-full bg-transparent hover:bg-pink-900/30 p-1 transition-colors duration-200"
+                            className="absolute right-3 top-0 rounded-full bg-transparent hover:bg-pink-900/30 p-1 transition-colors duration-200"
                         >
                             <X className="h-5 w-5 text-pink-500" />
                             <span className="sr-only">Close</span>
