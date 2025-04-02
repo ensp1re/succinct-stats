@@ -20,7 +20,6 @@ interface EarlyAccessProps {
 
 export function EarlyAccess({ totalSpots = 25000, remainingSpots = 1340 }: EarlyAccessProps) {
     const [visibleBlocks, setVisibleBlocks] = useState(0)
-    const [copiedCode, setCopiedCode] = useState(false)
 
     const totalBlocks = 20
     const claimedSpots = totalSpots - remainingSpots
@@ -44,12 +43,6 @@ export function EarlyAccess({ totalSpots = 25000, remainingSpots = 1340 }: Early
             clearInterval(blockInterval)
         }
     }, [filledBlocks])
-
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text)
-        setCopiedCode(true)
-        setTimeout(() => setCopiedCode(false), 2000)
-    }
 
     return (
         <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10 mb-8">
