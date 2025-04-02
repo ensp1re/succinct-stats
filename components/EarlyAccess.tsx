@@ -9,9 +9,8 @@ declare module "react" {
     }
 }
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Info, X, Twitter, Users, Code, ArrowRight, Copy, Check } from "lucide-react"
+import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog"
+import { Info, X, Twitter, Users, Code, ArrowRight } from "lucide-react"
 
 interface EarlyAccessProps {
     totalSpots: number
