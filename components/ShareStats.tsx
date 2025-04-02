@@ -116,7 +116,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                     Share
                 </Button>
             </DialogTrigger>
-            <DialogContent className="[&>button]:hidden mx-4 sm:max-w-sm bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-auto max-h-[90vh] p-4 rounded-lg">
+            <DialogContent className="[&>button]:hidden sm:max-w-sm bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-auto max-h-[90vh] p-4 rounded-lg">
                 <DialogHeader>
                     <DialogTitle className="text-lg font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>

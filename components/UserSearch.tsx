@@ -42,7 +42,7 @@ export function UserSearch() {
     setError(null)
     setTimeout(async () => {
       try {
-        const result = await getEntryByUsername(username)
+        const result = await getEntryByUsername(username.trim())
 
 
         if (result) {
