@@ -279,9 +279,45 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    if (action === "getTopPerformers") {
-      const top = data.slice(0, Number.parseInt(limit || "5"));
-      return NextResponse.json(top, { status: 200 });
+    if (action === "getTotalEntries") {
+      const totalEntries = data.length;
+      return NextResponse.json({ totalEntries }, { status: 200 });
+    }
+
+    if (action === "getTopUsersByProofsByPage" && page && entriesPerPage) {
+      const sortedData = data
+        .map((entry) => ({
+          ...entry,
+          proofs: Number(entry.proofs.replace(/,/g, "")),
+        }))
+        .sort((a, b) => b.proofs - a.proofs)
+        .map((entry, index) => ({
+          rank: index + 1,
+          name: entry.name,
+          proofs: entry.proofs.toLocaleString(),
+        }));
+
+      const startIndex =
+        (Number.parseInt(page) - 1) * Number.parseInt(entriesPerPage);
+      const pagedData = sortedData.slice(
+        startIndex,
+        startIndex + Number.parseInt(entriesPerPage)
+      );
+
+      if (pagedData.length === 0) {
+        return NextResponse.json(
+          { error: "No data found for the page" },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          data: pagedData,
+          total: sortedData.length,
+        },
+        { status: 200 }
+      );
     }
 
     // Default: return all data

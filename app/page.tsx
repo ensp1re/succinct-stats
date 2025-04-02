@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactElement, Suspense } from "react"
+import { ReactElement, Suspense, useEffect, useState } from "react"
 import { Leaderboard } from "@/components/Leaderboard"
 import { NetworkStats } from "@/components/NetworkStats"
 import { LoadingStats } from "@/components/LoadingStats"
@@ -11,8 +11,30 @@ import Link from "next/link"
 import { InvitersLeaderboard } from "@/components/InvitersLeaderboard"
 import { RunningCrab } from "@/components/RunningCrab"
 import { ActivityChart } from "@/components/ActivityChart"
+import { EarlyAccess } from "@/components/EarlyAccess"
+import { ProofsLeaderboard } from "@/components/ProofsLeaderboard"
+import { getTotalEntries } from "@/lib/csv-service"
 
 export default function Home(): ReactElement {
+
+
+  const [remainingSpots, setRemainingSpots] = useState<number>(0)
+
+
+  useEffect(() => {
+    const fetchRemainingSpots = async () => {
+      try {
+        const response = await getTotalEntries()
+        setRemainingSpots(25000 - response.totalEntries)
+      } catch (error) {
+        console.error("Error fetching remaining spots:", error)
+      }
+    }
+
+    fetchRemainingSpots()
+  }, [])
+
+
   return (
     <div suppressHydrationWarning className="min-h-screen">
       <RunningCrab speed={5} escapeDistance={150} size={50} enableSound={false} />
@@ -48,6 +70,12 @@ export default function Home(): ReactElement {
           </Suspense>
         </div>
 
+        <div className="mb-8">
+          <Suspense fallback={<LoadingStats />}>
+            <EarlyAccess totalSpots={25000} remainingSpots={remainingSpots} />
+          </Suspense>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <Suspense fallback={<LoadingStats />}>
             <NetworkStats />
@@ -58,15 +86,19 @@ export default function Home(): ReactElement {
         </div>
 
         <div className="mb-8">
-          <h2 className="text-2xl font-mono font-bold mb-4 text-pink-500 neon-text">LEADERBOARD</h2>
           <Suspense fallback={<LoadingStats />}>
             <Leaderboard />
           </Suspense>
         </div>
         <div className="mb-8">
-          <h2 className="text-2xl font-mono font-bold mb-4 text-pink-500 neon-text">INVITERS LEADERBOARD</h2>
           <Suspense fallback={<LoadingStats />}>
             <InvitersLeaderboard />
+          </Suspense>
+        </div>
+
+        <div className="mb-8">
+          <Suspense fallback={<LoadingStats />}>
+            <ProofsLeaderboard />
           </Suspense>
         </div>
 

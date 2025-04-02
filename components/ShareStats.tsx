@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useRef, useEffect, ReactElement } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Share2, Twitter, Copy, Check, Download, Info } from "lucide-react"
+import { Share2, Twitter, Copy, Check, Download, Info, X } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { Star } from "lucide-react"
 import type { LeaderboardEntry } from "@/lib/types"
@@ -116,7 +116,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                     Share
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-scroll max-h-screen">
+            <DialogContent className="[&>button]:hidden  sm:max-w-md bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-scroll max-h-screen">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-mono text-gray-900 dark:text-pink-500">Share Your Stats</DialogTitle>
                 </DialogHeader>
@@ -282,6 +282,15 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                             </div>
                         </div>
                     )}
+
+                    <DialogClose asChild>
+                        <button
+                            className="absolute right-4 top-2 rounded-full bg-transparent hover:bg-pink-900/30 p-1 transition-colors duration-200"
+                        >
+                            <X className="h-5 w-5 text-pink-500" />
+                            <span className="sr-only">Close</span>
+                        </button>
+                    </DialogClose>
 
                 </div>
             </DialogContent>

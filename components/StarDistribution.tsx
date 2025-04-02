@@ -15,6 +15,8 @@ export function StarDistribution() {
         if (!response.ok) throw new Error("Network response was not ok")
         const data = await response.json()
         setRanges(data)
+
+        console.log("Star ranges data:", data)
       } catch (error) {
         if (retries > 0) {
           console.warn(`Retrying... (${3 - retries + 1})`)
@@ -29,8 +31,10 @@ export function StarDistribution() {
     fetchData()
   }, [])
 
-  // Calculate the maximum count to normalize the bar widths
-  const maxCount = Math.max(...ranges.map((r) => r.count), 1)
+  const totalCount = ranges.reduce((sum, r) => sum + r.count, 0)
+
+
+
 
   return (
     <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
@@ -56,7 +60,7 @@ export function StarDistribution() {
                 <div className="w-full bg-pink-100 dark:bg-pink-900/20 rounded-full h-3">
                   <div
                     className={`h-full rounded-full ${index % 2 === 0 ? "bg-gradient-to-r from-pink-600 to-pink-400" : "bg-gradient-to-r from-cyan-600 to-cyan-400"}`}
-                    style={{ width: `${(range.count / maxCount) * 100}%` }}
+                    style={{ width: `${range.count && totalCount ? (range.count / totalCount) * 100 : 0}%` }}
                   ></div>
                 </div>
               </div>

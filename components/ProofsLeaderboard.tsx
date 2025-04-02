@@ -4,37 +4,37 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Award, Zap, Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { topInvitersLeaderboardByPage } from "@/lib/csv-service"
+import { Award, ChevronLeft, ChevronRight, Zap, Loader2, Code } from "lucide-react"
+import { getTopUsersByProofsByPage } from "@/lib/csv-service"
 
-interface IInviterLeaderboardEntry {
-    rank: number
-    inviter: string
-    count: number
+interface ProofLeaderboardEntry {
+    rank: string
+    name: string
+    proofs: string
 }
 
-export function InvitersLeaderboard() {
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const [entriesPerPage] = useState<number>(5)
-    const [data, setData] = useState<IInviterLeaderboardEntry[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [totalPages, setTotalPages] = useState<number>(0)
+export function ProofsLeaderboard() {
+    const [isLoading, setIsLoading] = useState(true)
+    const [leaderboardData, setLeaderboardData] = useState<ProofLeaderboardEntry[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [entriesPerPage] = useState(5)
+    const [totalPages, setTotalPages] = useState(0)
 
     useEffect(() => {
         const fetchData = async (retries = 3) => {
             setIsLoading(true)
             try {
-                const res = await topInvitersLeaderboardByPage(currentPage, entriesPerPage)
-                console.log(res);
-                setData(res.data)
+                const res = await getTopUsersByProofsByPage(currentPage, entriesPerPage)
+                console.log(res)
+                setLeaderboardData(res.data)
                 setTotalPages(Math.ceil(res.total / entriesPerPage))
             } catch (error) {
                 if (retries > 0) {
                     console.warn(`Retrying... (${3 - retries + 1})`)
                     fetchData(retries - 1)
                 } else {
-                    console.error("Error fetching inviters leaderboard data:", error)
+                    console.error("Error fetching leaderboard data:", error)
                 }
             } finally {
                 setIsLoading(false)
@@ -44,12 +44,21 @@ export function InvitersLeaderboard() {
         fetchData()
     }, [currentPage])
 
+    // Get current entries
+    const indexOfLastEntry = currentPage * entriesPerPage
+    const indexOfFirstEntry = indexOfLastEntry - entriesPerPage
+    const currentEntries = leaderboardData.slice(indexOfFirstEntry, indexOfLastEntry)
+
+    // Change page
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
     return (
         <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
             <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
-                <CardTitle className="text-xl font-mono text-pink-500">INVITERS</CardTitle>
+                <CardTitle className="text-xl font-mono text-pink-500 flex items-center">
+                    <Code className="w-6 h-6 mr-2" />
+                    PROOFS LEADERBOARD
+                </CardTitle>
             </CardHeader>
 
             <CardContent className="pt-6 overflow-x-auto">
@@ -58,7 +67,7 @@ export function InvitersLeaderboard() {
                         <Loader2 className="animate-spin w-8 h-8 mb-2" />
                         Loading leaderboard...
                     </div>
-                ) : data.length === 0 ? (
+                ) : leaderboardData.length === 0 ? (
                     <div className="text-center py-10 text-gray-400 font-mono">No data found.</div>
                 ) : (
                     <>
@@ -71,7 +80,7 @@ export function InvitersLeaderboard() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {data.map((entry, index) => (
+                                {leaderboardData && leaderboardData.map((entry, index) => (
                                     <TableRow
                                         key={index}
                                         className={`border-pink-300/30 dark:border-pink-900/30 ${index < 3 ? "bg-gradient-to-r from-white to-pink-50/50 dark:from-black dark:to-pink-950/20" : ""}`}
@@ -96,10 +105,10 @@ export function InvitersLeaderboard() {
                                                 <span className="text-gray-800 dark:text-white">{entry.rank}</span>
                                             )}
                                         </TableCell>
-                                        <TableCell className="font-mono text-gray-800 dark:text-white">{entry.inviter}</TableCell>
+                                        <TableCell className="font-mono text-gray-800 dark:text-white">{entry.name}</TableCell>
                                         <TableCell className="font-mono text-gray-800 dark:text-white text-right">
                                             <span className="bg-pink-100/70 dark:bg-pink-500/20 px-2 py-1 rounded text-pink-600 dark:text-pink-400">
-                                                {entry.count}
+                                                {entry.proofs}
                                             </span>
                                         </TableCell>
 
@@ -147,3 +156,4 @@ export function InvitersLeaderboard() {
         </Card>
     )
 }
+

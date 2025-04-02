@@ -101,3 +101,44 @@ export const fetchActivityData = async (startDate: string, endDate: string) => {
     throw error;
   }
 };
+
+export const getTopUsersByProofsByPage = async (
+  page: number,
+  entriesPerPage: number
+) => {
+  try {
+    const res = await axios.get("/api/leaderboard", {
+      params: {
+        action: "getTopUsersByProofsByPage",
+        page,
+        entriesPerPage,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching top users by proofs:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+    throw error;
+  }
+};
+
+export const getTotalEntries = async () => {
+  try {
+    const res = await axios.get("/api/leaderboard", {
+      params: {
+        action: "getTotalEntries",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching total entries:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+    throw error;
+  }
+};
