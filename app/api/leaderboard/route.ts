@@ -26,16 +26,28 @@ const getFilePath = () => {
   );
 
   if (!fs.existsSync(filePath)) {
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    const yesterdayString = getDateString(yesterday);
+    const leaderboardDir = path.join(process.cwd(), "public", "leaderboards");
+    const files = fs
+      .readdirSync(leaderboardDir)
+      .filter(
+        (file) =>
+          file.startsWith("succinct_leaderboard@") && file.endsWith(".csv")
+      )
+      .sort((a, b) => {
+        const dateA = new Date(
+          a.split("@")[1].replace(".csv", "").replace(/_/g, "-")
+        );
+        const dateB = new Date(
+          b.split("@")[1].replace(".csv", "").replace(/_/g, "-")
+        );
+        return dateB.getTime() - dateA.getTime();
+      });
 
-    filePath = path.join(
-      process.cwd(),
-      "public",
-      "leaderboards",
-      `succinct_leaderboard@${yesterdayString}.csv`
-    );
+    if (files.length > 0) {
+      filePath = path.join(leaderboardDir, files[0]);
+    } else {
+      throw new Error("No leaderboard files found.");
+    }
   }
 
   return filePath;
