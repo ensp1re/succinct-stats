@@ -10,7 +10,6 @@ import { fetchActivityData } from "@/lib/csv-service"
 interface DailyActivity {
     day: string
     date: string
-    newUsers: number
     starsEarned: number
     proofsGenerated: number
     activeUsers: number
@@ -20,7 +19,7 @@ interface DailyActivity {
 
 export function ActivityChart(): ReactElement {
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [selectedMetric, setSelectedMetric] = useState<"starsEarned" | "proofsGenerated" | "activeUsers" | "newUsers">("starsEarned")
+    const [selectedMetric, setSelectedMetric] = useState<"starsEarned" | "proofsGenerated" | "activeUsers">("starsEarned")
     const [dateRange, setDateRange] = useState<{
         start: string
         end: string
@@ -84,7 +83,6 @@ export function ActivityChart(): ReactElement {
     const maxStarsEarned = Math.max(...(Array.isArray(activityData) ? activityData.map((day) => day.starsEarned) : []), 1)
     const maxProofsGenerated = Math.max(...(Array.isArray(activityData) ? activityData.map((day) => day.proofsGenerated) : []), 1)
     const maxActiveUsers = Math.max(...(Array.isArray(activityData) ? activityData.map((day) => day.activeUsers) : []), 1)
-    const maxNewUsers = Math.max(...(Array.isArray(activityData) ? activityData.map((day) => day.newUsers) : []), 1)
 
     const getMaxValue = (metric: "starsEarned" | "proofsGenerated" | "activeUsers" | "newUsers"): number => {
         switch (metric) {
@@ -94,8 +92,6 @@ export function ActivityChart(): ReactElement {
                 return maxProofsGenerated
             case "activeUsers":
                 return maxActiveUsers
-            case "newUsers":
-                return maxNewUsers
             default:
                 return maxStarsEarned
         }
@@ -216,15 +212,7 @@ export function ActivityChart(): ReactElement {
                             >
                                 Active Users
                             </button>
-                            <button
-                                onClick={() => setSelectedMetric("newUsers")}
-                                className={`px-3 py-1 rounded-md text-sm ${selectedMetric === "newUsers"
-                                    ? "bg-green-500 text-white"
-                                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                                    }`}
-                            >
-                                New Users
-                            </button>
+
                         </div>
                     </div>
 

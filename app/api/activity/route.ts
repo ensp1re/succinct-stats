@@ -23,6 +23,8 @@ interface DailyActivity {
   topEarner: string;
   topEarnerStars: number;
   hasActualData: boolean;
+  totalStars?: number;
+  previousTotalStars?: number;
 }
 
 interface ActivityResponse {
@@ -35,16 +37,34 @@ interface ActivityResponse {
 function parseCSVFile(filePath: string): LeaderboardEntry[] {
   try {
     const fileContent = fs.readFileSync(filePath, "utf8");
+
     const records = parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
       trim: true,
+      relax_quotes: true,
+      relax_column_count: true,
     });
+
+    // Log a sample record for debugging
+    if (records.length > 0) {
+      console.log("Sample record:", records[0]);
+    }
+
     return records;
   } catch (error) {
     console.error(`Error parsing CSV file ${filePath}:`, error);
     return [];
   }
+}
+
+// Helper function to safely parse numeric values from strings with commas
+function safeParseInt(value: string): number {
+  if (!value) return 0;
+  // Remove commas and any non-numeric characters except for decimal points
+  const cleanedValue = value.replace(/[^\d.-]/g, "");
+  const parsedValue = Number.parseInt(cleanedValue, 10);
+  return isNaN(parsedValue) ? 0 : parsedValue;
 }
 
 // Helper function to get all available CSV files
@@ -128,86 +148,76 @@ function calculateDailyMetrics(
   activeUsers: number;
   topEarner: string;
   topEarnerStars: number;
+  totalStars: number;
+  previousTotalStars: number;
 } {
-  // Calculate new users (users in current day not in previous day)
-  let newUsers = 0;
+  // Total users today
+  const totalUsersToday = currentDayData.length;
+
+  // Total users from the previous day
+  const totalUsersYesterday = previousDayData ? previousDayData.length : 0;
+
+  // Calculate new users as the difference
+  const newUsers = Math.max(0, totalUsersToday - totalUsersYesterday);
+
+  // Calculate TOTAL stars for current day and previous day
+  let totalStars = 0;
+  let previousTotalStars = 0;
+
+  // Calculate total stars for current day
+  currentDayData.forEach((entry) => {
+    totalStars += safeParseInt(entry.Stars);
+  });
+
+  // Calculate total stars for previous day
   if (previousDayData) {
-    const previousUsernames = new Set(
-      previousDayData.map((entry) => entry.Name)
-    );
-    // Only count users that are in current day but not in previous day
-    newUsers = currentDayData.filter(
-      (entry) => !previousUsernames.has(entry.Name)
-    ).length;
-  } else {
-    // If no previous day data, we can't accurately determine new users
-    newUsers = 0;
+    previousDayData.forEach((entry) => {
+      previousTotalStars += safeParseInt(entry.Stars);
+    });
   }
 
-  // Calculate total stars earned for the day and find top earner
-  let starsEarned = 0;
+  // Stars earned is the difference between total stars today and total stars yesterday
+  const starsEarned = Math.max(0, totalStars - previousTotalStars);
+
+  // Find top earner (still track individual increases for this)
   let topEarner = { name: "N/A", starsEarned: 0 };
+  const previousStarsByUser = previousDayData
+    ? new Map(
+        previousDayData.map((entry) => [entry.Name, safeParseInt(entry.Stars)])
+      )
+    : new Map();
+
+  const userStarIncreases = new Map<string, number>();
+
+  currentDayData.forEach((entry) => {
+    const currentStars = safeParseInt(entry.Stars);
+    const previousStars = previousStarsByUser.get(entry.Name) || 0;
+    const starIncrease = Math.max(0, currentStars - previousStars);
+
+    userStarIncreases.set(entry.Name, starIncrease);
+  });
+
+  userStarIncreases.forEach((increase, username) => {
+    if (increase > topEarner.starsEarned) {
+      topEarner = { name: username, starsEarned: increase };
+    }
+  });
+
+  let totalProofs = 0;
+  let previousTotalProofs = 0;
+
+  currentDayData.forEach((entry) => {
+    totalProofs += safeParseInt(entry.Proofs);
+  });
 
   if (previousDayData) {
-    const previousStarsByUser = new Map();
     previousDayData.forEach((entry) => {
-      previousStarsByUser.set(
-        entry.Name,
-        Number.parseInt(entry.Stars.replace(/,/g, ""), 10)
-      );
+      previousTotalProofs += safeParseInt(entry.Proofs);
     });
-
-    // Track star increases for each user
-    const userStarIncreases = new Map<string, number>();
-
-    currentDayData.forEach((entry) => {
-      const currentStars = Number.parseInt(entry.Stars.replace(/,/g, ""), 10);
-      const previousStars = previousStarsByUser.get(entry.Name) || 0;
-      const starIncrease = Math.max(0, currentStars - previousStars);
-
-      // Add to total stars earned
-      starsEarned += starIncrease;
-
-      // Store this user's star increase
-      userStarIncreases.set(entry.Name, starIncrease);
-    });
-
-    // Find the user with the highest star increase
-    let maxIncrease = 0;
-    userStarIncreases.forEach((increase, username) => {
-      if (increase > maxIncrease) {
-        maxIncrease = increase;
-        topEarner = { name: username, starsEarned: increase };
-      }
-    });
-  } else {
-    // If no previous day data, we can't accurately calculate stars earned
-    starsEarned = 0;
-    topEarner = { name: "N/A", starsEarned: 0 };
   }
 
-  // Calculate proofs generated for the day
-  let proofsGenerated = 0;
-  if (previousDayData) {
-    const previousProofsByUser = new Map();
-    previousDayData.forEach((entry) => {
-      previousProofsByUser.set(
-        entry.Name,
-        Number.parseInt(entry.Proofs.replace(/,/g, ""), 10)
-      );
-    });
+  const proofsGenerated = Math.max(0, totalProofs - previousTotalProofs);
 
-    currentDayData.forEach((entry) => {
-      const currentProofs = Number.parseInt(entry.Proofs.replace(/,/g, ""), 10);
-      const previousProofs = previousProofsByUser.get(entry.Name) || 0;
-      proofsGenerated += Math.max(0, currentProofs - previousProofs);
-    });
-  } else {
-    // If no previous day data, we can't accurately calculate proofs generated
-    proofsGenerated = 0;
-  }
-
-  // Active users is simply the count of users in the current day
   const activeUsers = currentDayData.length;
 
   return {
@@ -217,6 +227,8 @@ function calculateDailyMetrics(
     activeUsers,
     topEarner: topEarner.name,
     topEarnerStars: topEarner.starsEarned,
+    totalStars,
+    previousTotalStars,
   };
 }
 
@@ -342,6 +354,8 @@ export async function GET(request: NextRequest) {
           date: currentDateStr,
           ...metrics,
           hasActualData: true,
+          totalStars: metrics.totalStars,
+          previousTotalStars: metrics.previousTotalStars,
         });
       } else {
         // No data file exists for this date, use zeros
