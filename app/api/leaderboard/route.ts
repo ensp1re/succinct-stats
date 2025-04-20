@@ -122,21 +122,21 @@ export async function GET(request: NextRequest) {
 
       const proofs = Math.min(
         Math.max(
-          (Number(result.proofs.replace(/,/g, "")) / averageProofs) * 10,
+          (Number(result.proofs.replace(/,/g, "")) / averageProofs) * 20,
           1
         ),
         100
       );
       const stars = Math.min(
         Math.max(
-          (Number(result.stars.replace(/,/g, "")) / averageStars) * 10,
+          (Number(result.stars.replace(/,/g, "")) / averageStars) * 20,
           1
         ),
         100
       );
       const cycles = Math.min(
         Math.max(
-          (Number(result.cycles.replace(/,/g, "")) / averageCycles) * 10,
+          (Number(result.cycles.replace(/,/g, "")) / averageCycles) * 20,
           1
         ),
         100
