@@ -72,7 +72,7 @@ export function NetworkStats(): ReactElement {
 
           <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
             <h3 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">TOTAL STARS</h3>
-            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedStars.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white font-mono">{animatedStars?.toLocaleString()}</p>
           </div>
 
           <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
