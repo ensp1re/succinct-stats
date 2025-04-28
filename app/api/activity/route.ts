@@ -210,6 +210,7 @@ function calculateDailyMetrics(
     totalProofs += safeParseInt(entry.Proofs);
   });
 
+
   if (previousDayData) {
     previousDayData.forEach((entry) => {
       previousTotalProofs += safeParseInt(entry.Proofs);
