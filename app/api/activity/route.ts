@@ -151,35 +151,78 @@ function calculateDailyMetrics(
   totalStars: number;
   previousTotalStars: number;
 } {
-  // Total users today
+  if (currentDayData.length === 0) {
+    console.warn("No data parsed for current day, returning zero metrics");
+    return {
+      newUsers: 0,
+      starsEarned: 0,
+      proofsGenerated: 0,
+      activeUsers: 0,
+      topEarner: "N/A",
+      topEarnerStars: 0,
+      totalStars: 0,
+      previousTotalStars: 0,
+    };
+  }
+
+  console.log(`Current day entries: ${currentDayData.length}`);
+  if (previousDayData) {
+    console.log(`Previous day entries: ${previousDayData.length}`);
+  }
+
+  // Total users
   const totalUsersToday = currentDayData.length;
-
-  // Total users from the previous day
   const totalUsersYesterday = previousDayData ? previousDayData.length : 0;
-
-  // Calculate new users as the difference
   const newUsers = Math.max(0, totalUsersToday - totalUsersYesterday);
 
-  // Calculate TOTAL stars for current day and previous day
+  // Calculate totals
   let totalStars = 0;
   let previousTotalStars = 0;
+  let totalProofs = 0;
+  let previousTotalProofs = 0;
 
-  // Calculate total stars for current day
+  // Current day
   currentDayData.forEach((entry) => {
-    totalStars += safeParseInt(entry.Stars);
+    const stars = safeParseInt(entry.Proofs);
+    const proofs = safeParseInt(entry.Proofs);
+    if (entry.Proofs && proofs === 0) {
+      console.warn(
+        `Invalid Proofs value for ${entry.Name}: "${entry.Proofs}" parsed as 0`
+      );
+    }
+    totalStars += stars;
+    totalProofs += proofs;
   });
 
-  // Calculate total stars for previous day
+  // Previous day
   if (previousDayData) {
     previousDayData.forEach((entry) => {
       previousTotalStars += safeParseInt(entry.Stars);
+      previousTotalProofs += safeParseInt(entry.Proofs);
     });
   }
 
-  // Stars earned is the difference between total stars today and total stars yesterday
+  // Calculate differences
   const starsEarned = Math.max(0, totalStars - previousTotalStars);
+  const proofsGenerated = Math.max(0, totalProofs - previousTotalProofs);
 
-  // Find top earner (still track individual increases for this)
+  if (totalProofs < previousTotalProofs) {
+    console.warn(
+      `Data inconsistency: totalProofs (${totalProofs}) is less than previousTotalProofs (${previousTotalProofs})`
+    );
+  }
+
+  // Log for debugging
+  console.log({
+    totalProofs,
+    previousTotalProofs,
+    proofsGenerated,
+    totalStars,
+    previousTotalStars,
+    starsEarned,
+  });
+
+  // Find top earner
   let topEarner = { name: "N/A", starsEarned: 0 };
   const previousStarsByUser = previousDayData
     ? new Map(
@@ -188,12 +231,10 @@ function calculateDailyMetrics(
     : new Map();
 
   const userStarIncreases = new Map<string, number>();
-
   currentDayData.forEach((entry) => {
     const currentStars = safeParseInt(entry.Stars);
     const previousStars = previousStarsByUser.get(entry.Name) || 0;
     const starIncrease = Math.max(0, currentStars - previousStars);
-
     userStarIncreases.set(entry.Name, starIncrease);
   });
 
@@ -203,29 +244,11 @@ function calculateDailyMetrics(
     }
   });
 
-  let totalProofs = 0;
-  let previousTotalProofs = 0;
-
-  currentDayData.forEach((entry) => {
-    totalProofs += safeParseInt(entry.Proofs);
-  });
-
-
-  if (previousDayData) {
-    previousDayData.forEach((entry) => {
-      previousTotalProofs += safeParseInt(entry.Proofs);
-    });
-  }
-
-  const proofsGenerated = Math.max(0, totalProofs - previousTotalProofs);
-
-  const activeUsers = currentDayData.length;
-
   return {
     newUsers,
     starsEarned,
     proofsGenerated,
-    activeUsers,
+    activeUsers: currentDayData.length,
     topEarner: topEarner.name,
     topEarnerStars: topEarner.starsEarned,
     totalStars,
