@@ -60,11 +60,12 @@ function parseCSVFile(filePath: string): LeaderboardEntry[] {
 
 // Helper function to safely parse numeric values from strings with commas
 function safeParseInt(value: string): number {
-  if (!value) return 0;
-  // Remove commas and any non-numeric characters except for decimal points
+  if (!value || typeof value !== "string") return 0;
+  // Remove commas and non-numeric characters except for decimal points
   const cleanedValue = value.replace(/[^\d.-]/g, "");
-  const parsedValue = Number.parseInt(cleanedValue, 10);
-  return isNaN(parsedValue) ? 0 : parsedValue;
+  // Use Number() as requested
+  const parsedValue = Number(cleanedValue);
+  return isNaN(parsedValue) ? 0 : Math.floor(parsedValue); // Ensure integer output
 }
 
 // Helper function to get all available CSV files
@@ -183,8 +184,8 @@ function calculateDailyMetrics(
 
   // Current day
   currentDayData.forEach((entry) => {
-    const stars = safeParseInt(entry.Proofs);
-    const proofs = safeParseInt(entry.Proofs);
+    const stars = safeParseInt(entry.Stars || "0"); // Use Stars field
+    const proofs = safeParseInt(entry.Proofs || "0"); // Use Proofs field
     totalStars += stars;
     totalProofs += proofs;
   });
@@ -192,8 +193,10 @@ function calculateDailyMetrics(
   // Previous day
   if (previousDayData) {
     previousDayData.forEach((entry) => {
-      previousTotalStars += safeParseInt(entry.Stars);
-      previousTotalProofs += safeParseInt(entry.Proofs);
+      const stars = safeParseInt(entry.Stars || "0");
+      const proofs = safeParseInt(entry.Proofs || "0");
+      previousTotalStars += stars;
+      previousTotalProofs += proofs;
     });
   }
 
@@ -207,6 +210,12 @@ function calculateDailyMetrics(
     );
   }
 
+  if (totalStars < previousTotalStars) {
+    console.warn(
+      `Data inconsistency: totalStars (${totalStars}) is less than previousTotalStars (${previousTotalStars})`
+    );
+  }
+
   // Log for debugging
   console.log({
     totalProofs,
@@ -215,19 +224,25 @@ function calculateDailyMetrics(
     totalStars,
     previousTotalStars,
     starsEarned,
+    newUsers,
+    totalUsersToday,
+    totalUsersYesterday,
   });
 
   // Find top earner
   let topEarner = { name: "N/A", starsEarned: 0 };
   const previousStarsByUser = previousDayData
     ? new Map(
-        previousDayData.map((entry) => [entry.Name, safeParseInt(entry.Stars)])
+        previousDayData.map((entry) => [
+          entry.Name,
+          safeParseInt(entry.Stars || "0"),
+        ])
       )
     : new Map();
 
   const userStarIncreases = new Map<string, number>();
   currentDayData.forEach((entry) => {
-    const currentStars = safeParseInt(entry.Stars);
+    const currentStars = safeParseInt(entry.Stars || "0");
     const previousStars = previousStarsByUser.get(entry.Name) || 0;
     const starIncrease = Math.max(0, currentStars - previousStars);
     userStarIncreases.set(entry.Name, starIncrease);
