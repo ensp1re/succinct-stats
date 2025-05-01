@@ -89,6 +89,7 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get("limit");
 
   try {
+    
     const data = await loadLeaderboardData();
 
     if (action === "getByUsername" && username) {

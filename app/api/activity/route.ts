@@ -185,11 +185,6 @@ function calculateDailyMetrics(
   currentDayData.forEach((entry) => {
     const stars = safeParseInt(entry.Proofs);
     const proofs = safeParseInt(entry.Proofs);
-    if (entry.Proofs && proofs === 0) {
-      console.warn(
-        `Invalid Proofs value for ${entry.Name}: "${entry.Proofs}" parsed as 0`
-      );
-    }
     totalStars += stars;
     totalProofs += proofs;
   });
