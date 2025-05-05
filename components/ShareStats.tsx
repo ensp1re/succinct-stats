@@ -181,7 +181,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                         <div className="flex items-center">
                                             <Star className="text-pink-500 w-4 h-4 mr-1" />
                                             <span className="text-gray-900 dark:text-white font-mono text-sm">{
-                                                userStats?.stars
+                                                Number(userStats?.stars).toLocaleString()
                                             }</span>
                                         </div>
                                     </div>
@@ -193,7 +193,9 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                 <div>
                                     <div className="flex justify-between mb-1">
                                         <h3 className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">PROOFS</h3>
-                                        <span className="text-gray-900 dark:text-white font-mono text-sm"> {userStats?.proofs}</span>
+                                        <span className="text-gray-900 dark:text-white font-mono text-sm"> {
+                                            Number(userStats?.proofs).toLocaleString()
+                                        }</span>
                                     </div>
                                     <Progress value={userProgress?.proofs ? Number(userProgress.proofs) : undefined} className="h-3 bg-gray-300 dark:bg-pink-900/30">
                                         <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
@@ -204,7 +206,7 @@ const ShareStats = ({ user, progress }: ShareStatsProps): ReactElement => {
                                     <div className="flex justify-between mb-1">
                                         <h3 className="text-cyan-600 dark:text-cyan-400 font-mono text-sm">CYCLES</h3>
                                         <span className="text-gray-900 dark:text-white font-mono text-sm">{
-                                            userStats?.cycles
+                                            Number(userStats?.cycles).toLocaleString()
                                         }</span>
                                     </div>
                                     <Progress value={userProgress?.cycles ? Number(userProgress.proofs) : undefined} className="h-3 bg-gray-300 dark:bg-pink-900/30">

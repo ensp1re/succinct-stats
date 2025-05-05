@@ -194,7 +194,7 @@ export function UserSearch() {
                       <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">STARS</h3>
                       <div className="flex items-center">
                         <Star className="text-pink-500 w-4 h-4 mr-1" />
-                        <span className="text-gray-800 dark:text-white font-mono">{userStats.stars}</span>
+                        <span className="text-gray-800 dark:text-white font-mono">{Number(userStats.stars).toLocaleString()}</span>
                       </div>
                     </div>
                     <Progress value={progress.stars} className="h-3 bg-pink-100 dark:bg-pink-900/30">
@@ -205,7 +205,7 @@ export function UserSearch() {
                   <div className="bg-white/50 dark:bg-black/50 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30 shadow-sm">
                     <div className="flex justify-between mb-2">
                       <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">PROOFS</h3>
-                      <span className="text-gray-800 dark:text-white font-mono">{userStats.proofs}</span>
+                      <span className="text-gray-800 dark:text-white font-mono">{Number(userStats.proofs).toLocaleString()}</span>
                     </div>
                     <Progress value={progress.proofs} className="h-3 bg-pink-100 dark:bg-pink-900/30">
                       <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
@@ -215,7 +215,10 @@ export function UserSearch() {
                   <div className="bg-white/50 dark:bg-black/50 p-4 rounded-lg border border-pink-300/30 dark:border-pink-900/30 shadow-sm">
                     <div className="flex justify-between mb-2">
                       <h3 className="text-cyan-600 dark:text-cyan-400 font-mono">CYCLES</h3>
-                      <span className="text-gray-800 dark:text-white font-mono">{userStats.cycles}</span>
+                      <span className="text-gray-800 dark:text-white font-mono">
+                        {Number(userStats.cycles).toLocaleString()}
+
+                      </span>
                     </div>
                     <Progress value={progress.cycles} className="h-3 bg-pink-100 dark:bg-pink-900/30">
                       <div className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" />
