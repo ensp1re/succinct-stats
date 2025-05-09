@@ -4,16 +4,15 @@ import { ReactElement, Suspense, useEffect, useState } from "react"
 import { Leaderboard } from "@/components/Leaderboard"
 import { NetworkStats } from "@/components/NetworkStats"
 import { LoadingStats } from "@/components/LoadingStats"
-import { UserSearch } from "@/components/UserSearch"
 import { StarDistribution } from "@/components/StarDistribution"
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { InvitersLeaderboard } from "@/components/InvitersLeaderboard"
-// import { RunningCrab } from "@/components/RunningCrab"
 import { ActivityChart } from "@/components/ActivityChart"
 import { EarlyAccess } from "@/components/EarlyAccess"
 import { ProofsLeaderboard } from "@/components/ProofsLeaderboard"
 import { getTotalEntries } from "@/lib/csv-service"
+import { UnifiedUserSearch } from "@/components/UnitedSearch"
 
 export default function Home(): ReactElement {
 
@@ -66,7 +65,7 @@ export default function Home(): ReactElement {
 
         <div className="mb-8">
           <Suspense fallback={<LoadingStats />}>
-            <UserSearch />
+            <UnifiedUserSearch />
           </Suspense>
         </div>
 
