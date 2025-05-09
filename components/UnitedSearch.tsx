@@ -476,7 +476,7 @@ export function UnifiedUserSearch() {
                                             ) : (
                                                 <div className="flex items-center justify-center">
                                                     <Search className="mr-2 h-4 w-4" />
-                                                    SEARCH NETWORK
+                                                    SEARCH
                                                 </div>
                                             )}
                                         </Button>
