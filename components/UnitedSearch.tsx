@@ -476,7 +476,7 @@ export function UnifiedUserSearch() {
                                             ) : (
                                                 <div className="flex items-center justify-center">
                                                     <Search className="mr-2 h-4 w-4" />
-                                                    SEARCH
+                                                    SEARCH NETWORK
                                                 </div>
                                             )}
                                         </Button>
@@ -697,7 +697,6 @@ export function UnifiedUserSearch() {
                                 </div>
                             )}
 
-                            {/* No Results Message */}
                             {((searchType === "twitter" && !userStats) ||
                                 (searchType === "discord" && roles.length === 0) ||
                                 (searchType === "both" && !userStats && roles.length === 0)) && (
