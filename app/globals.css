@@ -484,3 +484,135 @@ html.dark body {
 html:not(.dark) body {
   background-color: #f8f9fa;
 }
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(10px);
+  }
+  75% {
+    transform: translateY(-8px) translateX(-5px);
+  }
+}
+
+@keyframes float-medium {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-8px) translateX(8px);
+  }
+  66% {
+    transform: translateY(-4px) translateX(-8px);
+  }
+}
+
+@keyframes float-fast {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-6px) translateX(6px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-flow {
+  background: linear-gradient(
+    -45deg,
+    rgba(236, 72, 153, 0.3),
+    rgba(34, 211, 238, 0.3),
+    rgba(168, 85, 247, 0.3),
+    rgba(245, 158, 11, 0.3)
+  );
+  background-size: 400% 400%;
+  animation: gradient-flow 15s ease infinite;
+}
+
+@keyframes pulse-bg {
+  0%,
+  100% {
+    background-color: rgba(236, 72, 153, 0.1);
+  }
+  50% {
+    background-color: rgba(236, 72, 153, 0.2);
+  }
+}
+
+.animate-pulse-bg {
+  animation: pulse-bg 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 8s infinite linear;
+}
+
+@keyframes wave-bg {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-wave-bg {
+  background: linear-gradient(
+    45deg,
+    rgba(236, 72, 153, 0.1) 0%,
+    rgba(34, 211, 238, 0.1) 25%,
+    rgba(168, 85, 247, 0.1) 50%,
+    rgba(245, 158, 11, 0.1) 75%,
+    rgba(236, 72, 153, 0.1) 100%
+  );
+  background-size: 400% 400%;
+  animation: wave-bg 10s ease infinite;
+}
