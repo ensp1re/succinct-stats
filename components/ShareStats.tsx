@@ -1101,11 +1101,17 @@ const ShareStats = ({ user, progress, roles = [] }: ShareStatsProps): ReactEleme
           Share
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-4xl bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-auto max-h-[90vh] p-4 rounded-lg">
+      <DialogContent className="[&>button]:hidden sm:max-w-4xl bg-white dark:bg-black border my-4 border-gray-300 dark:border-pink-900/50 overflow-y-auto max-h-[90vh] p-4 rounded-lg">
         <DialogHeader>
           <DialogTitle className="text-lg font-mono text-gray-900 dark:text-pink-500">
             Customize & Share Your Stats
           </DialogTitle>
+          <DialogClose asChild>
+            <button className="absolute right-2 top-2 rounded-full bg-transparent hover:bg-pink-900/20 p-1 transition-colors duration-200">
+              <X className="h-5 w-5 text-pink-500" />
+              <span className="sr-only">Close</span>
+            </button>
+          </DialogClose>
         </DialogHeader>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
