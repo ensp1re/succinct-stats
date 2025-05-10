@@ -697,7 +697,6 @@ export function UnifiedUserSearch() {
                                 </div>
                             )}
 
-                            {/* No Results Message */}
                             {((searchType === "twitter" && !userStats) ||
                                 (searchType === "discord" && roles.length === 0) ||
                                 (searchType === "both" && !userStats && roles.length === 0)) && (
