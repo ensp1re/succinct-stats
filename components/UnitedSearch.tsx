@@ -42,7 +42,6 @@ export function UnifiedUserSearch() {
 
     // Role filtering states
     const [roles, setRoles] = useState<string[]>([])
-    const [selectedCategories, setSelectedCategories] = useState<string[]>(Object.values(ROLE_CATEGORIES))
     const [userStats, setUserStats] = useState<LeaderboardEntry | null>(null)
     const [progress, setProgress] = useState<{
         proofs: number
@@ -529,21 +528,30 @@ export function UnifiedUserSearch() {
                                 <div className="bg-gradient-to-br from-white to-pink-50/50 dark:from-black dark:to-pink-950/20 border border-pink-300/50 dark:border-pink-900/50 rounded-md p-6 animate-fadeIn shadow-md">
                                     <div className="flex flex-col md:flex-row justify-between mb-6">
                                         <div className="flex items-start">
-                                            <div>
-                                                <a
-                                                    href={`https://twitter.com/${userStats.name}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-2xl text-pink-500 hover:text-pink-600 dark:hover:text-pink-600 font-mono inline-flex items-center group transition-colors duration-500"
-                                                >
-                                                    {userStats.name}
-                                                    <svg className="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                                    </svg>
-                                                </a>
-                                                <p className="text-gray-600 dark:text-gray-400 text-sm">
-                                                    Invited by: {userStats.invitedBy !== "-" ? userStats.invitedBy : "None"}
-                                                </p>
+                                            <div className="flex items-center space-x-4">
+                                                {userStats.avatar && (
+                                                    <img
+                                                        src={userStats.avatar}
+                                                        alt={`${userStats.name}'s avatar`}
+                                                        className="w-14 h-14 rounded-full border-2 border-pink-300 shadow-sm object-cover"
+                                                    />
+                                                )}
+                                                <div>
+                                                    <a
+                                                        href={`https://twitter.com/${userStats.name}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-2xl text-pink-500 hover:text-pink-600 dark:hover:text-pink-600 font-mono inline-flex items-center group transition-colors duration-500"
+                                                    >
+                                                        {userStats.name}
+                                                        <svg className="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                                        </svg>
+                                                    </a>
+                                                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                                                        Invited by: {userStats.invitedBy !== "-" ? userStats.invitedBy : "None"}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="mt-4 md:mt-0 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">

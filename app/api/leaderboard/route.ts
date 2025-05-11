@@ -74,6 +74,7 @@ const loadLeaderboardData = async (): Promise<LeaderboardEntry[]> => {
         // Sanitize and validate numeric fields
         const entry: LeaderboardEntry = {
           rank: row["Rank"] || "",
+          avatar: row["Avatar"] || "",
           name: row["Name"] || "",
           invitedBy: row["Invited By"] || "",
           proofs: safeParseNumber(row["Proofs"]).toString(),
@@ -102,7 +103,6 @@ export async function GET(request: NextRequest) {
   const username = searchParams.get("username");
   const page = searchParams.get("page");
   const entriesPerPage = searchParams.get("entriesPerPage");
-  const limit = searchParams.get("limit");
 
   try {
     const data = await loadLeaderboardData();

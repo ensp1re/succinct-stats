@@ -29,6 +29,9 @@ class DsService {
           },
           timeout: 5000, // 5-second timeout
         });
+
+        console.log(response)
+
         return response.data;
       } catch (error: any) {
         console.error("Error fetching stats import:", {

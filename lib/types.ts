@@ -1,5 +1,6 @@
 export interface LeaderboardEntry {
   rank: string;
+  avatar: string;
   name: string;
   invitedBy: string;
   proofs: string;
