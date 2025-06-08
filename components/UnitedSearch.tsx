@@ -950,17 +950,17 @@ export function UnifiedUserSearch() {
                                         return (
                                             <>
                                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-gradient-to-br from-white to-pink-50/50 dark:from-black dark:to-pink-950/20 border border-pink-300/50 dark:border-pink-900/50 rounded-md shadow-md">
-                                                    <div className="flex items-center">
+                                                    <div className="flex flex-col xs:flex-row sm:flex-row items-center xs:items-center sm:items-center gap-3 xs:gap-4 sm:gap-4 w-full">
                                                         {user.avatarUrl && (
                                                             <img
                                                                 src={user.avatarUrl}
                                                                 alt={user.username ? String(user.username) : ''}
-                                                                className="w-16 h-16 rounded-full border-2 border-pink-300 object-cover mr-4 shadow-md"
+                                                                className="w-20 h-20 xs:w-16 xs:h-16 sm:w-16 sm:h-16 rounded-full border-2 border-pink-300 object-cover shadow-md mb-2 xs:mb-0 sm:mb-0 xs:mr-4 sm:mr-4"
                                                             />
                                                         )}
-                                                        <div>
-                                                            <h3 className="text-2xl font-mono text-gray-800 dark:text-white mb-1 flex items-center gap-2">
-                                                                {user.username}
+                                                        <div className="flex-1 min-w-0">
+                                                            <h3 className="text-xl xs:text-2xl sm:text-2xl font-mono text-gray-800 dark:text-white mb-1 flex flex-wrap items-center gap-2">
+                                                                <span className="truncate max-w-[60vw] xs:max-w-none">{user.username}</span>
                                                                 <span className={`ml-2 text-xs px-2 py-0.5 rounded-full border font-mono ${user.platform === 'twitter' ? 'bg-[#1DA1F2]/10 text-[#1DA1F2] border-[#1DA1F2]/30' : 'bg-[#5865F2]/10 text-[#5865F2] border-[#5865F2]/30'}`}>{user.platform === 'twitter' ? 'Twitter' : 'Discord'}</span>
                                                                 {user.gpu?.type && (
                                                                     <span className="ml-2 flex items-center gap-1">
@@ -999,13 +999,13 @@ export function UnifiedUserSearch() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex items-center space-x-4">
-                                                        <div className="flex space-x-2">
-                                                            <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-lg border border-pink-300/50 dark:border-pink-900/50 shadow-sm">
+                                                    <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-2 xs:gap-4 w-full xs:w-auto lg:w-fit">
+                                                        <div className="flex flex-row xs:flex-col gap-2 xs:gap-2 w-full xs:w-auto lg:w-fit">
+                                                            <div className="flex-1 xs:flex-none bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-lg border border-pink-300/50 dark:border-pink-900/50 shadow-sm min-w-[110px] flex flex-col items-center lg:min-w-[90px]">
                                                                 <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">RANK</span>
                                                                 <div className="text-2xl font-bold text-pink-500 font-mono">#{user.rank}</div>
                                                             </div>
-                                                            <div className="bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-lg border border-pink-300/50 dark:border-pink-900/50 shadow-sm">
+                                                            <div className="flex-1 xs:flex-none bg-pink-50 dark:bg-pink-950/30 px-4 py-2 rounded-lg border border-pink-300/50 dark:border-pink-900/50 shadow-sm min-w-[110px] flex flex-col items-center lg:min-w-[90px]">
                                                                 <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">POINTS</span>
                                                                 <div className="text-2xl font-bold text-pink-500 font-mono">
                                                                     {user.pointsRaw}
