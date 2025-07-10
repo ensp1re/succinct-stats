@@ -17,6 +17,7 @@ import ShareStats from "./ShareStats"
 import type { LeaderboardEntry } from "@/lib/types"
 import { ROLE_CATEGORIES, categorizeRole, getRoleIndex, sortRolesByImportance } from "@/lib/roles"
 import { dsService } from "@/lib/ds.service"
+import Image from "next/image"
 
 // Sample user data with roles
 const sampleRoles = [
@@ -955,13 +956,29 @@ export function UnifiedUserSearch() {
                                             <>
                                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-4 bg-gradient-to-br from-white to-pink-50/50 dark:from-black dark:to-pink-950/20 border border-pink-300/50 dark:border-pink-900/50 rounded-md shadow-md">
                                                     <div className="flex flex-col xs:flex-row sm:flex-row items-center xs:items-center sm:items-center gap-3 xs:gap-4 sm:gap-4 w-full">
-                                                        {user.avatarUrl && (
-                                                            <img
+                                                  
+                                                            <Image
+                                                                width={80}
+                                                                height={80}
                                                                 src={user.avatarUrl}
                                                                 alt={user.username ? String(user.username) : ''}
                                                                 className="w-20 h-20 xs:w-16 xs:h-16 sm:w-16 sm:h-16 rounded-full border-2 border-pink-300 object-cover shadow-md mb-2 xs:mb-0 sm:mb-0 xs:mr-4 sm:mr-4"
+                                                                onError={(e) => {
+                                                                    const target = e.target as HTMLImageElement;
+                                                                    target.onerror = null;
+                                                                    target.style.display = "none";
+                                                                    // Insert fallback avatar (styled div) after the image
+                                                                    const fallbackDiv = document.createElement("div");
+                                                                    fallbackDiv.className = "w-20 h-20 xs:w-16 xs:h-16 sm:w-16 sm:h-16 rounded-full border-2 border-pink-300 bg-pink-100 dark:bg-pink-900 flex items-center justify-center shadow-md mb-2 xs:mb-0 sm:mb-0 xs:mr-4 sm:mr-4";
+                                                                    // Remove @ if present at the start of the username
+                                                                    const displayName = user.username && typeof user.username === "string"
+                                                                        ? user.username.replace(/^@/, "").trim().charAt(0).toUpperCase()
+                                                                        : "?";
+                                                                    fallbackDiv.innerHTML = `<span class='text-3xl font-bold text-pink-500 dark:text-pink-200'>${displayName}</span>`;
+                                                                    target.parentNode?.insertBefore(fallbackDiv, target.nextSibling);
+                                                                }}
                                                             />
-                                                        )}
+                                                        
                                                         <div className="flex-1 min-w-0">
                                                             <h3 className="text-xl xs:text-2xl sm:text-2xl font-mono text-gray-800 dark:text-white mb-1 flex flex-wrap items-center gap-2">
                                                                 <span className="truncate max-w-[60vw] xs:max-w-none">{user.username}</span>
