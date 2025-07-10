@@ -971,9 +971,15 @@ export function UnifiedUserSearch() {
                                                                     const fallbackDiv = document.createElement("div");
                                                                     fallbackDiv.className = "w-20 h-20 xs:w-16 xs:h-16 sm:w-16 sm:h-16 rounded-full border-2 border-pink-300 bg-pink-100 dark:bg-pink-900 flex items-center justify-center shadow-md mb-2 xs:mb-0 sm:mb-0 xs:mr-4 sm:mr-4";
                                                                     // Remove @ if present at the start of the username
-                                                                    const displayName = user.username && typeof user.username === "string"
-                                                                        ? user.username.replace(/^@/, "").trim().charAt(0).toUpperCase()
-                                                                        : "?";
+                                                                    // Remove any leading non-alphanumeric symbols (including @, #, etc.), then get the first word, then first letter
+                                                                    let displayName = "?";
+                                                                    if (user.username && typeof user.username === "string") {
+                                                                        // Remove leading non-alphanumeric symbols
+                                                                        const cleaned = user.username.trim().replace(/^[^a-zA-Z0-9]+/, "");
+                                                                        // Get first word (split by whitespace)
+                                                                        const firstWord = cleaned.split(/\s+/)[0];
+                                                                        displayName = firstWord.charAt(0).toUpperCase() || "?";
+                                                                    }
                                                                     fallbackDiv.innerHTML = `<span class='text-3xl font-bold text-pink-500 dark:text-pink-200'>${displayName}</span>`;
                                                                     target.parentNode?.insertBefore(fallbackDiv, target.nextSibling);
                                                                 }}
