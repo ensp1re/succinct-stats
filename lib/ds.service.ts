@@ -16,6 +16,18 @@ class DsService {
     this.apiKey = apiKey;
   }
 
+  async getRolesInfo(): Promise<any> {
+    const url = `${this.baseUrl}`;
+    const response = await axios.get(url, {
+      headers: {
+        "x-api-key": this.apiKey,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  }
+
   async checkStatsImport(idOrUsername: string, retries = 3): Promise<any> {
     const url = `${this.baseUrl}/${encodeURIComponent(idOrUsername)}`;
 

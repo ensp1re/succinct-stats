@@ -13,6 +13,7 @@ import { EarlyAccess } from "@/components/EarlyAccess"
 import { ProofsLeaderboard } from "@/components/ProofsLeaderboard"
 import { getTotalEntries } from "@/lib/csv-service"
 import { UnifiedUserSearch } from "@/components/UnitedSearch"
+import { RoleStats } from "@/components/RoleStats"
 
 export default function Home(): ReactElement {
 
@@ -104,6 +105,12 @@ export default function Home(): ReactElement {
         <div className="mb-8">
           <Suspense fallback={<LoadingStats />}>
             <ActivityChart />
+          </Suspense>
+        </div>
+
+        <div className="mb-8">
+          <Suspense fallback={<LoadingStats />}>
+            <RoleStats />
           </Suspense>
         </div>
 
