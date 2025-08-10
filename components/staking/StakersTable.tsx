@@ -60,9 +60,30 @@ export function StakersTable({
           <TableBody>
             {isLoading ? (
               Array.from({ length: 10 }).map((_, i) => (
-                <TableRow key={i} className="border-pink-300/30 dark:border-pink-900/30">
-                  <TableCell colSpan={6} className="text-center py-8">
-                    <div className="w-8 h-8 border-t-2 border-pink-500 border-r-2 border-pink-500/50 rounded-full animate-spin mx-auto"></div>
+                <TableRow key={i} className="border-pink-300/30 dark:border-pink-900/30 animate-pulse">
+                  <TableCell className="font-mono">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-8"></div>
+                  </TableCell>
+                  <TableCell className="font-mono">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+                  </TableCell>
+                  <TableCell className="font-mono">
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="font-mono">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                  </TableCell>
+                  <TableCell className="font-mono">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                  </TableCell>
+                  <TableCell className="font-mono text-right">
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24 ml-auto"></div>
+                      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 ml-auto"></div>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))

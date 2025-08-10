@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge"
 import { ProverSparkline } from "@/components/staking/ProverSparkline"
 import { formatProveTokens, formatNumber, shortenAddress } from "@/lib/client-utils"
 import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
-import { Award, Users, Activity } from "lucide-react"
+import { CalculatorModal } from "./CalculatorModal"
+import { Award, Activity } from "lucide-react"
 import Image from "next/image"
 
 type ProverData = {
@@ -86,7 +87,7 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
         </div>
       </CardHeader>
       <CardContent className="pt-4">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div>
             <p className="text-xs text-cyan-600 dark:text-cyan-400 font-mono mb-1">TOTAL STAKED</p>
             <p className="text-xl font-mono font-bold text-gray-800 dark:text-white">
@@ -100,7 +101,7 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
           </div>
 
           {(data.proofs_won !== undefined || data.prover_gas || data.apr_percent !== undefined) && (
-            <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-2 gap-4 text-xs">
               {data.proofs_won !== undefined && data.proofs_won !== null && (
                 <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-2 rounded border border-pink-300/30 dark:border-pink-900/30">
                   <div className="flex items-center text-cyan-600 dark:text-cyan-400 font-mono mb-1">
@@ -145,6 +146,15 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
           <div>
             <p className="text-xs text-cyan-600 dark:text-cyan-400 font-mono mb-2">STAKING TREND</p>
             <ProverSparkline data={series} />
+            <div className="mt-4">
+              <CalculatorModal
+                proverName={data.name || shortenAddress(data.prover)}
+                proverAddress={data.prover}
+                defaultAPR={data.apr_percent ?? 30}
+                defaultSuccessRate={data.success_rate ?? 100}
+                defaultGas={data.prover_gas || "0"}
+              />
+            </div>
           </div>
         </div>
       </CardContent>
