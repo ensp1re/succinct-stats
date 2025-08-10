@@ -9,8 +9,8 @@ import { Footer } from "@/components/Footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Succinct Stats - Testnet Leaderboard & Analytics",
-  description: "Track your Succinct testnet stats and view the global leaderboard",
+  title: "Succinct Stats – Staking Analytics & Leaderboard",
+  description: "Insights into the Succinct Prover Network staking ecosystem. Track provers, stakers, and network activity.",
 }
 
 export default function RootLayout({
