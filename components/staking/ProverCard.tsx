@@ -101,7 +101,7 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
                     PROOFS WON
                   </div>
                   <p className="font-mono font-bold text-gray-800 dark:text-white">
-                    {typeof data.proofs_won === 'number' ? data.proofs_won.toLocaleString() : parseInt(String(data.proofs_won)).toLocaleString()}
+                    {data.proofs_won}
                   </p>
                 </div>
               )}
@@ -112,15 +112,15 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
                     GAS
                   </div>
                   <p className="font-mono font-bold text-gray-800 dark:text-white">
-                    {formatNumber(data.prover_gas)}
+                    {data.prover_gas}
                   </p>
                 </div>
               )}
               {data.apr_percent !== undefined && data.apr_percent !== null && (
                 <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-2 rounded border border-pink-300/30 dark:border-pink-900/30">
-                  <div className="text-cyan-600 dark:text-cyan-400 font-mono mb-1">APR</div>
+                  <div className="text-cyan-600 dark:text-cyan-400 font-mono mb-1">APY</div>
                   <p className="font-mono font-bold text-gray-800 dark:text-white">
-                    {typeof data.apr_percent === 'number' ? data.apr_percent.toFixed(2) : parseFloat(String(data.apr_percent)).toFixed(2)}%
+                    {data.apr_percent}%
                   </p>
                 </div>
               )}
@@ -128,7 +128,7 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
                 <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-2 rounded border border-pink-300/30 dark:border-pink-900/30">
                   <div className="text-cyan-600 dark:text-cyan-400 font-mono mb-1">SUCCESS</div>
                   <p className="font-mono font-bold text-gray-800 dark:text-white">
-                    {typeof data.success_rate === 'number' ? data.success_rate.toFixed(1) : parseFloat(String(data.success_rate)).toFixed(1)}%
+                    {data.success_rate}%
                   </p>
                 </div>
               )}
