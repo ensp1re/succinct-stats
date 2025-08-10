@@ -19,7 +19,7 @@ export default function Home(): ReactElement {
               Staking Analytics
             </h1>
             <p className="text-sm sm:text-lg md:text-xl font-mono text-white/90 relative z-10">
-              Real-time insights into the Succinct Network staking ecosystem
+              Insights into the Succinct Prover Network staking ecosystem
             </p>
           </div>
         </div>
