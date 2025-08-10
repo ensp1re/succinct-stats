@@ -215,7 +215,7 @@ export function CalculatorModal({
                   placeholder="5000"
                   value={stakeStr}
                   onChange={(e) => setStakeStr(e.target.value)}
-                  className="text-right font-bold h-8 text-sm rounded pr-14 bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50 focus:border-pink-500 focus:ring-0 focus:ring-offset-0"
+                  className="text-right font-bold h-10 text-base rounded pr-14 bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50 focus:border-pink-500 focus:ring-0 focus:ring-offset-0"
                 />
                 <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-pink-500 font-semibold">
                   PROVE
@@ -236,7 +236,7 @@ export function CalculatorModal({
 
             <div className="space-y-1">
               <Label className="text-xs font-medium text-gray-700 dark:text-gray-300">APY</Label>
-              <div className="text-center rounded p-2 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50">
+              <div className="text-center rounded p-2 h-10 flex items-center justify-center bg-gray-50 dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50">
                 <div className="text-lg font-bold text-pink-500">
                   {parseNum(aprStr).toFixed(1)}%
                 </div>
@@ -248,7 +248,7 @@ export function CalculatorModal({
 
             <div className="space-y-1">
               <Label className="text-xs font-medium text-gray-700 dark:text-gray-300">PROVE Price</Label>
-              <div className="text-center rounded p-2 bg-gray-50 dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50">
+              <div className="text-center rounded p-2 h-10 flex items-center justify-center bg-gray-50 dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50">
                 <div className="text-lg font-bold text-cyan-600 dark:text-cyan-400">
                   {provePrice ? `$${provePrice.toFixed(2)}` : "Loading..."}
                 </div>
@@ -350,7 +350,7 @@ function AirdropEditor({
               inputMode="decimal"
               value={state.percentStr}
               onChange={(e) => onChange({ ...state, percentStr: e.target.value })}
-              className="border-gray-300 dark:border-pink-900/50 focus:border-pink-500 bg-white dark:bg-gray-800 h-7 text-xs"
+              className="h-8 text-sm rounded bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50 focus:border-pink-500 focus:ring-0 focus:ring-offset-0"
             />
             <p className="text-xs text-gray-500 dark:text-gray-400">e.g. 0.05 for 0.05%</p>
           </div>
@@ -362,7 +362,7 @@ function AirdropEditor({
               value={state.tokenFdvUsdStr}
               onChange={(e) => onChange({ ...state, tokenFdvUsdStr: e.target.value })}
               placeholder="500000000"
-              className="border-gray-300 dark:border-pink-900/50 focus:border-pink-500 bg-white dark:bg-gray-800 h-7 text-xs"
+              className="h-8 text-sm rounded bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-pink-900/50 focus:border-pink-500 focus:ring-0 focus:ring-offset-0"
             />
             <p className="text-xs text-gray-500 dark:text-gray-400">
               1B supply (e.g. 500M = $0.5/token)
