@@ -9,6 +9,7 @@ import { StakersTable, StakerRow } from "@/components/staking/StakersTable"
 import { DistributionPie } from "@/components/staking/DistributionPie"
 import { StakingChart } from "@/components/staking/StakingChart"
 import { formatNumber, formatProveTokens } from "@/lib/client-utils"
+import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 
 import { ErrorState, TableErrorState, ChartErrorState } from "@/components/staking/ErrorStates"
 
@@ -52,6 +53,7 @@ export function StakingStats(): ReactElement {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(0)
   const [period, setPeriod] = useState<"day" | "week" | "month">("day")
+  const { price: provePrice } = useProvePrice()
   
   // Loading states
   const [isLoadingSummary, setIsLoadingSummary] = useState<boolean>(true)
@@ -252,6 +254,11 @@ export function StakingStats(): ReactElement {
                   <div className="text-3xl font-mono font-bold text-cyan-600 dark:text-cyan-400">
                     {formatProveTokens(animatedTotalStaked)}
                   </div>
+                  {provePrice && (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 font-mono mt-1">
+                      {formatUsdValue(animatedTotalStaked, provePrice)}
+                    </p>
+                  )}
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Across all provers</p>
                 </div>
               </CardContent>

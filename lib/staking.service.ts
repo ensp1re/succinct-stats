@@ -68,8 +68,9 @@ export async function getStakerAggregates(search?: string, page = 1, limit = 10)
   if (search) {
     params.push(`%${search}%`)
     params.push(`%${search}%`)
-    where.push(`(staker ILIKE $${paramIndex} OR prover ILIKE $${paramIndex + 1})`)
-    paramIndex += 2
+    params.push(`%${search}%`)
+    where.push(`(staker ILIKE $${paramIndex} OR prover ILIKE $${paramIndex + 1} OR prover_name ILIKE $${paramIndex + 2})`)
+    paramIndex += 3
   }
 
   const whereSql = where.length ? `WHERE ${where.join(" AND ")}` : ""
@@ -95,14 +96,16 @@ export async function getStakerAggregates(search?: string, page = 1, limit = 10)
     all_ranked AS (
       SELECT t.staker, to_char(l.evt_block_time::timestamptz, 'YYYY-MM-DD"T"HH24:MI:SSZ') AS last_staked_at,
              l.evt_tx_hash, l.prover, t.total_staked,
+             COALESCE(sd.name, CONCAT(SUBSTRING(l.prover, 1, 6), '...', SUBSTRING(l.prover, -4))) as prover_name,
              ROW_NUMBER() OVER (ORDER BY t.total_staked DESC) as rank
       FROM totals t
       LEFT JOIN last_tx l USING (staker)
+      LEFT JOIN staking_data sd ON (LOWER(SUBSTRING(l.prover, 1, 5)) = LOWER(SUBSTRING(sd.address, 1, 5)))
     ),
     filtered AS (
       SELECT r.*
       FROM all_ranked r
-      ${whereSql ? whereSql.replace('staker ILIKE', 'r.staker ILIKE').replace('prover ILIKE', 'r.prover ILIKE') : ''}
+      ${whereSql ? whereSql.replace('staker ILIKE', 'r.staker ILIKE').replace('prover ILIKE', 'r.prover ILIKE').replace('prover_name ILIKE', 'r.prover_name ILIKE') : ''}
       ORDER BY r.total_staked DESC
     ),
     total_count AS (
@@ -119,6 +122,7 @@ export async function getStakerAggregates(search?: string, page = 1, limit = 10)
     last_staked_at: string; 
     evt_tx_hash: string; 
     prover: string; 
+    prover_name: string;
     total_staked: string;
     rank: string;
     total: string;
@@ -132,6 +136,7 @@ export async function getStakerAggregates(search?: string, page = 1, limit = 10)
     lastTxHash: r.evt_tx_hash,
     lastStakedAt: r.last_staked_at,
     lastProver: r.prover,
+    lastProverName: r.prover_name,
   }))
 
   return { stakers, total }

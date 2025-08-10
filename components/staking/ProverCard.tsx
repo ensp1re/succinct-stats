@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProverSparkline } from "@/components/staking/ProverSparkline"
 import { formatProveTokens, formatNumber, shortenAddress } from "@/lib/client-utils"
+import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 import { Award, Users, Activity } from "lucide-react"
 import Image from "next/image"
 
@@ -23,6 +24,7 @@ type ProverData = {
 
 export function ProverCard({ data }: { data: ProverData }): ReactElement {
   const [series, setSeries] = useState<Array<{ x: string; y: number }>>([])
+  const { price: provePrice } = useProvePrice()
 
   useEffect(() => {
     void (async () => {
@@ -90,6 +92,11 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
             <p className="text-xl font-mono font-bold text-gray-800 dark:text-white">
               {formatProveTokens(data.totalStaked)}
             </p>
+            {provePrice && (
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-mono mt-1">
+                {formatUsdValue(data.totalStaked, provePrice)}
+              </p>
+            )}
           </div>
 
           {(data.proofs_won !== undefined || data.prover_gas || data.apr_percent !== undefined) && (

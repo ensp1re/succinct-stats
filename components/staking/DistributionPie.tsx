@@ -5,6 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PieChart as PieChartIcon } from "lucide-react"
 import { shortenAddress } from "@/lib/client-utils"
+import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 
 const COLORS = ["#fe11c5", "#22d3ee", "#e610b0", "#06b6d4", "#c20e95", "#0891b2", "#9f0c7a", "#16a085", "#831065", "#1abc9c"]
 
@@ -19,6 +20,7 @@ type DistributionPieProps = {
 }
 
 export function DistributionPie({ data }: DistributionPieProps): ReactElement {
+  const { price: provePrice } = useProvePrice()
   // Calculate distribution with "Others" for remaining provers (top 9 + others)
   const topProvers = data.slice(0, 9)
   const othersValue = data.slice(9).reduce((sum, item) => sum + parseFloat(item.totalStaked), 0)
@@ -55,6 +57,11 @@ export function DistributionPie({ data }: DistributionPieProps): ReactElement {
           <p className="font-mono text-xs text-cyan-600 dark:text-cyan-400">
             {formatValue(data.value)} PROVE ({data.percentage.toFixed(1)}%)
           </p>
+          {provePrice && (
+            <p className="font-mono text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {formatUsdValue(data.value, provePrice)}
+            </p>
+          )}
         </div>
       )
     }

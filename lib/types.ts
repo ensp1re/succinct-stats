@@ -55,6 +55,7 @@ export interface StakerAggregate {
   lastTxHash: string
   lastStakedAt: string
   lastProver: string
+  lastProverName: string
 }
 
 export interface StakingDataRow {

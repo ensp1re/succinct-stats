@@ -8,11 +8,13 @@ import { ChevronLeft, ChevronRight, Award } from "lucide-react"
 import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 import { shortenAddress, formatProveTokens } from "@/lib/client-utils"
+import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 
 export type StakerRow = {
   rank: number
   staker: string
   lastProver: string
+  lastProverName: string
   lastStakedAt: string
   lastTxHash: string
   totalStaked: string
@@ -31,8 +33,9 @@ export function StakersTable({
   currentPage, 
   totalPages, 
   onPageChange,
-  isLoading = false 
+  isLoading = false
 }: StakersTableProps): ReactElement {
+  const { price: provePrice } = useProvePrice()
   
   return (
     <div className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10 rounded-lg overflow-hidden">
@@ -92,8 +95,13 @@ export function StakersTable({
                     <TableCell className="font-mono text-gray-700 dark:text-gray-300 font-semibold">
                       {shortenAddress(row.staker)}
                     </TableCell>
-                    <TableCell className="font-mono text-gray-700 dark:text-gray-300">
-                      {shortenAddress(row.lastProver)}
+                    <TableCell className="font-mono">
+                      <div className="text-gray-700 dark:text-gray-300 font-semibold">
+                        {row.lastProverName}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        {shortenAddress(row.lastProver)}
+                      </div>
                     </TableCell>
                     <TableCell className="font-mono text-gray-600 dark:text-gray-400 text-sm">
                       {new Date(row.lastStakedAt).toLocaleDateString()}
@@ -108,8 +116,15 @@ export function StakersTable({
                         <ExternalLink className="h-3 w-3" />
                       </Link>
                     </TableCell>
-                    <TableCell className="font-mono text-right font-bold text-gray-800 dark:text-white">
-                      {formatProveTokens(row.totalStaked)}
+                    <TableCell className="font-mono text-right">
+                      <div className="font-bold text-gray-800 dark:text-white">
+                        {formatProveTokens(row.totalStaked)}
+                      </div>
+                      {provePrice && (
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          {formatUsdValue(row.totalStaked, provePrice)}
+                        </div>
+                      )}
                     </TableCell>
                   </TableRow>
                 )
