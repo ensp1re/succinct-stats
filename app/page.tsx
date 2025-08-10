@@ -24,6 +24,34 @@ export default function Home(): ReactElement {
           </div>
         </div>
 
+        {/* Stake CTA Button */}
+        <div className="mb-8 text-center">
+          <a
+            href="https://staking.succinct.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-mono font-bold py-3 px-6 md:py-4 md:px-8 rounded-lg shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-300"
+          >
+            <span className="text-lg md:text-xl">Stake Here</span>
+            <svg 
+              className="w-5 h-5 md:w-6 md:h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+              />
+            </svg>
+          </a>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-3 font-mono">
+            Start earning rewards by staking PROVE tokens
+          </p>
+        </div>
+
         {/* Staking Stats */}
         <Suspense fallback={<LoadingStats />}>
           <StakingStats />

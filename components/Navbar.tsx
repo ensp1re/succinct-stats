@@ -22,21 +22,21 @@ export function Navbar(): ReactElement {
         <div className="hidden md:flex items-center space-x-6">
           <Link
             href="/testnet-stats"
-            className="text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono group relative"
+            className="text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono group relative"
           >
             [TESTNET STATS]
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
           </Link>
           <Link
             href="/earn"
-            className="text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono group relative"
+            className="text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono group relative"
           >
             [EARN]
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
           </Link>
           <Link
             href="/docs"
-            className="text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono group relative"
+            className="text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono group relative"
           >
             [DOCS]
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
@@ -59,7 +59,7 @@ export function Navbar(): ReactElement {
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             <Link
               href="/testnet-stats"
-              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono"
+              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono"
               onClick={() => setIsMenuOpen(false)}
             >
               <Award size={18} />
@@ -67,7 +67,7 @@ export function Navbar(): ReactElement {
             </Link>
             <Link
               href="/earn"
-              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono"
+              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono"
               onClick={() => setIsMenuOpen(false)}
             >
               <Award size={18} />
@@ -75,7 +75,7 @@ export function Navbar(): ReactElement {
             </Link>
             <Link
               href="/docs"
-              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-400 dark:hover:text-pink-400 font-mono"
+              className="flex items-center space-x-2 text-gray-800 dark:text-white hover:text-pink-500 dark:hover:text-pink-500 font-mono"
               onClick={() => setIsMenuOpen(false)}
             >
               <BookOpen size={18} />

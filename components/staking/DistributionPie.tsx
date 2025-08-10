@@ -7,7 +7,19 @@ import { PieChart as PieChartIcon } from "lucide-react"
 import { shortenAddress } from "@/lib/client-utils"
 import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 
-const COLORS = ["#fe11c5", "#22d3ee", "#e610b0", "#06b6d4", "#c20e95", "#0891b2", "#9f0c7a", "#16a085", "#831065", "#1abc9c"]
+// Use project pink/cyan palette only
+const COLORS = [
+  "#ec4899", // pink-500
+  "#06b6d4", // cyan-500
+  "#db2777", // pink-600
+  "#22d3ee", // cyan-400
+  "#831843", // pink-900
+  "#ec4899",
+  "#06b6d4",
+  "#db2777",
+  "#22d3ee",
+  "#831843",
+]
 
 type DistributionData = {
   name: string
@@ -69,8 +81,8 @@ export function DistributionPie({ data }: DistributionPieProps): ReactElement {
   }
 
   return (
-    <Card className="bg-white dark:bg-black border border-pink-300/50 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
-      <CardHeader className="border-b border-pink-300/30 dark:border-pink-900/30">
+    <Card className="bg-white dark:bg-[#050505] border border-gray-300 dark:border-pink-900/50 shadow-lg shadow-pink-300/10 dark:shadow-pink-500/10">
+      <CardHeader className="border-b border-gray-300 dark:border-pink-900/30">
         <CardTitle className="text-xl font-mono text-pink-500 flex items-center">
           <PieChartIcon className="w-5 h-5 mr-2" />
           STAKING DISTRIBUTION
@@ -94,20 +106,11 @@ export function DistributionPie({ data }: DistributionPieProps): ReactElement {
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend
-                wrapperStyle={{
-                  fontSize: '12px',
-                  fontFamily: 'monospace'
-                }}
-                formatter={(value, entry) => (
-                  <span style={{ color: 'var(--foreground)' }}>{value}</span>
-                )}
-              />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="mt-4 p-4 bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 rounded-lg border border-pink-300/30 dark:border-pink-900/30">
+        <div className="mt-4 p-4 bg-gradient-to-br from-white to-pink-50 dark:from-[#050505] dark:to-pink-950/30 rounded-lg border border-gray-300 dark:border-pink-900/30">
           <h4 className="text-cyan-600 dark:text-cyan-400 font-mono mb-2">DISTRIBUTION INSIGHTS</h4>
           <p className="text-gray-700 dark:text-gray-300 text-sm">
             Visualization of staking distribution across top provers. The chart shows how total staked PROVE tokens 
