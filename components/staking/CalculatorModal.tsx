@@ -290,14 +290,29 @@ export function CalculatorModal({
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="bg-gray-50 dark:bg-[#0a0a0a] rounded-lg p-2 border border-gray-300 dark:border-pink-900/50">
                 <div className="text-sm font-bold text-pink-500">{formatNum(perDayTokens, 1)}</div>
+                {provePrice && (
+                  <div className="text-xs font-medium text-cyan-600 dark:text-cyan-400 mt-0.5">
+                    ≈ ${formatNum(toUSDFromPROVE(perDayTokens, provePrice)!, 2)}
+                  </div>
+                )}
                 <div className="text-xs text-gray-500 dark:text-gray-400">Per Day</div>
               </div>
               <div className="bg-gray-50 dark:bg-[#0a0a0a] rounded-lg p-2 border border-gray-300 dark:border-pink-900/50">
                 <div className="text-sm font-bold text-pink-500">{formatNum(perMonthTokens)}</div>
+                {provePrice && (
+                  <div className="text-xs font-medium text-cyan-600 dark:text-cyan-400 mt-0.5">
+                    ≈ ${formatNum(toUSDFromPROVE(perMonthTokens, provePrice)!, 2)}
+                  </div>
+                )}
                 <div className="text-xs text-gray-500 dark:text-gray-400">Per Month</div>
               </div>
               <div className="bg-gray-50 dark:bg-[#0a0a0a] rounded-lg p-2 border border-gray-300 dark:border-pink-900/50">
                 <div className="text-sm font-bold text-pink-500">{formatNum(perYearTokens)}</div>
+                {provePrice && (
+                  <div className="text-xs font-medium text-cyan-600 dark:text-cyan-400 mt-0.5">
+                    ≈ ${formatNum(toUSDFromPROVE(perYearTokens, provePrice)!, 2)}
+                  </div>
+                )}
                 <div className="text-xs text-gray-500 dark:text-gray-400">Per Year</div>
               </div>
             </div>
