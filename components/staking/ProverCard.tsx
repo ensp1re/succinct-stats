@@ -4,7 +4,7 @@ import { ReactElement, useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProverSparkline } from "@/components/staking/ProverSparkline"
-import { formatProveTokens, formatNumber, shortenAddress } from "@/lib/client-utils"
+import { formatProveTokens, shortenAddress } from "@/lib/client-utils"
 import { useProvePrice, formatUsdValue } from "@/hooks/use-prove-price"
 import { CalculatorModal } from "./CalculatorModal"
 import { Award, Activity } from "lucide-react"
@@ -100,19 +100,8 @@ export function ProverCard({ data }: { data: ProverData }): ReactElement {
             )}
           </div>
 
-          {(data.proofs_won !== undefined || data.prover_gas || data.apr_percent !== undefined) && (
+          {(data.prover_gas || data.apr_percent !== undefined) && (
             <div className="grid grid-cols-2 gap-4 text-xs">
-              {data.proofs_won !== undefined && data.proofs_won !== null && (
-                <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-2 rounded border border-pink-300/30 dark:border-pink-900/30">
-                  <div className="flex items-center text-cyan-600 dark:text-cyan-400 font-mono mb-1">
-                    <Award className="w-3 h-3 mr-1" />
-                    PROOFS WON
-                  </div>
-                  <p className="font-mono font-bold text-gray-800 dark:text-white">
-                    {data.proofs_won}
-                  </p>
-                </div>
-              )}
               {data.prover_gas && (
                 <div className="bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-pink-950/30 p-2 rounded border border-pink-300/30 dark:border-pink-900/30">
                   <div className="flex items-center text-cyan-600 dark:text-cyan-400 font-mono mb-1">
